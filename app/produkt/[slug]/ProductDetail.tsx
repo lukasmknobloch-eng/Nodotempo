@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import type { CatalogProduct } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
 import { site } from "@/lib/site";
+import { productInfo } from "@/lib/products";
+import { CordSwatch } from "@/components/BraceletArt";
 import { useShop } from "@/components/ShopProvider";
 import { ProductImage } from "@/components/ProductImage";
 import { QuantityStepper } from "@/components/QuantityStepper";
@@ -13,7 +15,7 @@ import { PaymentBadges } from "@/components/PaymentBadges";
 import { ChevronIcon, LockIcon, ReturnIcon, TruckIcon } from "@/components/Icons";
 
 export function ProductDetail({ product }: { product: CatalogProduct }) {
-  const { addToCart } = useShop();
+  const { addToCart, catalog } = useShop();
   const [active, setActive] = useState(0);
   const [size, setSize] = useState<string | null>(product.sizes.length === 1 ? product.sizes[0] : null);
   const [quantity, setQuantity] = useState(1);
@@ -61,7 +63,7 @@ export function ProductDetail({ product }: { product: CatalogProduct }) {
       </div>
 
       <div className="pdp-info">
-        <p className="eyebrow">Kollektion {product.collection}</p>
+        <p className="eyebrow">Handgeknüpft · {product.color}</p>
         <h1 className="pdp-title">{product.name}</h1>
         <p className="pdp-price">
           {product.compareAtPrice && <s>{formatPrice(product.compareAtPrice)}</s>}
@@ -78,10 +80,41 @@ export function ProductDetail({ product }: { product: CatalogProduct }) {
         <div className="pdp-option">
           <div className="pdp-option-head">
             <span>
+              Farbe: <strong>{product.color}</strong>
+            </span>
+          </div>
+          <div className="swatches" aria-label="Farbe wählen">
+            {catalog.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/produkt/${p.slug}`}
+                className={`swatch ${p.slug === product.slug ? "is-active" : ""}`}
+                aria-label={`${p.name} (${p.color})`}
+                aria-current={p.slug === product.slug ? "page" : undefined}
+                title={p.color}
+                scroll={false}
+              >
+                <CordSwatch art={p.art} size={34} />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {product.sizes.length === 1 ? (
+          <p className="pdp-fit">
+            <strong>Größe:</strong> stufenlos verstellbar über zwei Schiebeknoten – passt für nahezu jedes Handgelenk.{" "}
+            <Link href="/tragen" className="underline">
+              So funktioniert’s
+            </Link>
+          </p>
+        ) : (
+        <div className="pdp-option">
+          <div className="pdp-option-head">
+            <span>
               Größe{size && <strong>: {size}</strong>}
             </span>
-            <Link href="/groessenberater" className="underline small">
-              Größenberater
+            <Link href="/tragen" className="underline small">
+              Tragen & Größe
             </Link>
           </div>
           <div className="size-grid" role="radiogroup" aria-label="Größe wählen">
@@ -102,6 +135,7 @@ export function ProductDetail({ product }: { product: CatalogProduct }) {
           </div>
           {sizeError && <p className="form-error">Bitte wähle eine Größe.</p>}
         </div>
+        )}
 
         <div className="pdp-buy">
           <QuantityStepper value={quantity} onChange={setQuantity} min={1} />
@@ -121,7 +155,7 @@ export function ProductDetail({ product }: { product: CatalogProduct }) {
           </li>
           <li>
             <ReturnIcon />
-            <span>{site.returnDays} Tage kostenlose Rückgabe & Umtausch der Größe.</span>
+            <span>{site.returnDays} Tage Rückgaberecht.</span>
           </li>
           <li>
             <LockIcon />
@@ -141,9 +175,9 @@ export function ProductDetail({ product }: { product: CatalogProduct }) {
             <summary>
               Details & Material <ChevronIcon />
             </summary>
-            <p>{product.material}</p>
+            <p>{productInfo.material}</p>
             <ul className="bullets">
-              {product.details.map((d) => (
+              {productInfo.details.map((d) => (
                 <li key={d}>{d}</li>
               ))}
             </ul>
@@ -152,7 +186,7 @@ export function ProductDetail({ product }: { product: CatalogProduct }) {
             <summary>
               Pflege <ChevronIcon />
             </summary>
-            <p>{product.care}</p>
+            <p>{productInfo.care}</p>
           </details>
           <details>
             <summary>

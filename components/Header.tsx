@@ -86,7 +86,7 @@ export function Header() {
             <Link href="/wunschliste">Wunschliste</Link>
           </nav>
           <div className="mobile-menu-foot">
-            <Link href="/groessenberater">Größenberater</Link>
+            <Link href="/tragen">Tragen & Größe</Link>
             <Link href="/faq">Häufige Fragen</Link>
             <Link href="/kontakt">Kontakt</Link>
           </div>

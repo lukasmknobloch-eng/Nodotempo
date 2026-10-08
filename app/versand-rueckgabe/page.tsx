@@ -46,12 +46,12 @@ export default function ShippingPage() {
         Schweiz können Einfuhrabgaben anfallen. Bestellungen, die werktags bis 14 Uhr eingehen, verlassen unser Atelier
         in der Regel am selben Tag. Sobald dein Paket unterwegs ist, erhältst du eine E-Mail mit Sendungsverfolgung.
       </p>
-      <p>Jedes Armband wird in unserer Schachtel mit Pflegetuch verschickt – ideal auch als Geschenk.</p>
+      <p>Jedes Armband wird liebevoll verpackt verschickt – ideal auch als Geschenk.</p>
 
       <h2>Rückgabe & Umtausch</h2>
       <p>
         Du kannst Artikel innerhalb von {site.returnDays} Tagen nach Erhalt zurückgeben – ungetragen und in der
-        Originalverpackung. Der Umtausch in eine andere Größe ist kostenlos.
+        Originalverpackung. Gerne tauschen wir dein Armband auch gegen eine andere Farbe.
       </p>
       <ol>
         <li>

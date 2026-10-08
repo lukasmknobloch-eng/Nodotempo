@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCatalog, getCatalogProduct } from "@/lib/catalog";
-import { categoryLabel, products } from "@/lib/products";
+import { productInfo, products } from "@/lib/products";
 import { site } from "@/lib/site";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductDetail } from "./ProductDetail";
@@ -31,10 +31,10 @@ export default async function ProductPage({ params }: Props) {
   const product = getCatalogProduct(slug);
   if (!product) notFound();
 
-  const related = getCatalog()
-    .filter((p) => p.slug !== product.slug)
-    .sort((a, b) => Number(b.category === product.category) - Number(a.category === product.category) || a.rank - b.rank)
-    .slice(0, 4);
+  // Die nächsten Farben in der Shop-Reihenfolge
+  const catalog = getCatalog();
+  const index = catalog.findIndex((p) => p.slug === product.slug);
+  const related = [1, 2, 3, 4].map((i) => catalog[(index + i) % catalog.length]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -42,7 +42,8 @@ export default async function ProductPage({ params }: Props) {
     name: product.name,
     description: product.description,
     brand: { "@type": "Brand", name: site.name },
-    material: product.material,
+    material: productInfo.material,
+    color: product.color,
     image: product.images.map((src) => new URL(src, site.url).toString()),
     offers: {
       "@type": "Offer",
@@ -62,8 +63,6 @@ export default async function ProductPage({ params }: Props) {
           <span>/</span>
           <Link href="/shop">Shop</Link>
           <span>/</span>
-          <Link href={`/shop?kategorie=${product.category}`}>{categoryLabel(product.category)}</Link>
-          <span>/</span>
           <span aria-current="page">{product.name}</span>
         </nav>
         <ProductDetail product={product} />
@@ -71,8 +70,8 @@ export default async function ProductPage({ params }: Props) {
       <section className="section container">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Passend dazu</p>
-            <h2 className="h2">Das könnte dir gefallen</h2>
+            <p className="eyebrow">Kombinieren</p>
+            <h2 className="h2">Weitere Farben</h2>
           </div>
         </div>
         <div className="grid-products">

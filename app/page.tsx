@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCatalog, findImage } from "@/lib/catalog";
-import { categories } from "@/lib/products";
 import { site } from "@/lib/site";
 import { formatPrice } from "@/lib/format";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductImage } from "@/components/ProductImage";
 import { HeroArt } from "@/components/HeroArt";
+import { CordSwatch } from "@/components/BraceletArt";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { ArrowIcon, GiftIcon, HandIcon, ReturnIcon, TruckIcon } from "@/components/Icons";
 
@@ -28,8 +28,8 @@ export default function HomePage() {
               <em> Den Stil gleich daneben.</em>
             </h1>
             <p className="hero-lead">
-              Armbänder aus Naturstein, Leder und Edelstahl – entworfen, um neben einer Uhr getragen zu werden. Und
-              stark genug, um ganz für sich zu stehen.
+              Handgeknüpfte Stoffarmbänder in {catalog.length} Farben – entworfen, um neben einer Uhr getragen zu
+              werden. Und stark genug, um ganz für sich zu stehen.
             </p>
             <div className="hero-actions">
               <Link href="/shop" className="btn btn-light">
@@ -53,7 +53,7 @@ export default function HomePage() {
       <section className="usp-strip" aria-label="Unsere Versprechen">
         <div className="container usp-strip-inner">
           <span>Von Hand gefertigt</span>
-          <span>Hypoallergener Edelstahl 316L</span>
+          <span>Stufenlos verstellbar</span>
           <span>Versandkostenfrei ab {formatPrice(site.shipping.freeFrom)}</span>
           <span>{site.returnDays} Tage Rückgabe</span>
         </div>
@@ -82,7 +82,7 @@ export default function HomePage() {
             {storyImage ? (
               <Image src={storyImage} alt="Nodotempo Atelier" fill sizes="(max-width: 900px) 100vw, 50vw" />
             ) : (
-              <ProductImage product={catalog.find((p) => p.slug === "nodo-corda") ?? catalog[0]} />
+              <ProductImage product={catalog.find((p) => p.slug === "nodo-notte") ?? catalog[0]} />
             )}
           </div>
           <div className="story-copy">
@@ -108,27 +108,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section container">
+      <section className="section container" id="farben">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Kategorien</p>
-            <h2 className="h2">Finde dein Material</h2>
+            <p className="eyebrow">{catalog.length} Farben</p>
+            <h2 className="h2">Finde deine Farbe</h2>
           </div>
+          <p className="section-note">
+            Passend zum Zifferblatt, zum Uhrenband – oder einfach zu dir. Kombiniere mehrere Farben übereinander.
+          </p>
         </div>
-        <div className="grid-categories">
-          {categories.map((c) => {
-            const sample = catalog.find((p) => p.category === c.id)!;
-            return (
-              <Link key={c.id} href={`/shop?kategorie=${c.id}`} className="category-tile">
-                <ProductImage product={sample} src={sample.images[0]} />
-                <div className="category-tile-body">
-                  <h3>{c.label}</h3>
-                  <p>{c.description}</p>
-                </div>
+        <ul className="palette">
+          {catalog.map((p) => (
+            <li key={p.slug}>
+              <Link href={`/produkt/${p.slug}`} className="palette-item">
+                <CordSwatch art={p.art} size={88} />
+                <span className="palette-name">{p.name.replace("Nodo ", "")}</span>
+                <span className="palette-color">{p.color}</span>
               </Link>
-            );
-          })}
-        </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="pairing">
@@ -137,10 +137,10 @@ export default function HomePage() {
             <p className="eyebrow eyebrow-light">Für Uhrenträger</p>
             <h3 className="h3">Neben der Uhr</h3>
             <p>
-              Trage dein Armband auf der Seite der Uhr – mit etwas Abstand, damit das Gehäuse frei bleibt. Metallene
-              Akzente in Stahl oder Gold greifen Gehäuse und Band auf.
+              Trage dein Armband neben der Uhr – mit etwas Abstand, damit das Gehäuse frei bleibt. Greife eine Farbe
+              aus Zifferblatt oder Uhrenband auf: Petrol zur Taucheruhr, Khaki zur Felduhr, Rot als Akzent.
             </p>
-            <Link href="/groessenberater" className="link-arrow link-light">
+            <Link href="/tragen" className="link-arrow link-light">
               Tipps zur Kombination <ArrowIcon />
             </Link>
           </div>
@@ -149,8 +149,8 @@ export default function HomePage() {
             <p className="eyebrow eyebrow-light">Für alle</p>
             <h3 className="h3">Ganz für sich</h3>
             <p>
-              Allein getragen oder zu mehreren gestapelt: Unsere Armbänder sind so proportioniert, dass sie auch ohne
-              Uhr ein vollständiges Bild ergeben – vom Büro bis zum Abend.
+              Allein getragen oder in mehreren Farben kombiniert: Unsere Armbänder ergeben auch ohne Uhr ein
+              vollständiges Bild – vom Büro bis zum Wochenende.
             </p>
             <Link href="/shop" className="link-arrow link-light">
               Jetzt kombinieren <ArrowIcon />
@@ -164,7 +164,7 @@ export default function HomePage() {
           <div className="value">
             <HandIcon />
             <h3>Von Hand gefertigt</h3>
-            <p>Jedes Armband wird einzeln aufgezogen, geknüpft oder genäht und vor dem Versand geprüft.</p>
+            <p>Jedes Armband wird einzeln von Hand geknüpft und vor dem Versand geprüft.</p>
           </div>
           <div className="value">
             <TruckIcon />
@@ -174,12 +174,12 @@ export default function HomePage() {
           <div className="value">
             <ReturnIcon />
             <h3>{site.returnDays} Tage Rückgabe</h3>
-            <p>Passt nicht? Du kannst jedes Armband innerhalb von {site.returnDays} Tagen zurückgeben.</p>
+            <p>Gefällt dir die Farbe nicht? Du kannst jedes Armband innerhalb von {site.returnDays} Tagen zurückgeben.</p>
           </div>
           <div className="value">
             <GiftIcon />
             <h3>Geschenkfertig</h3>
-            <p>Jede Bestellung kommt in unserer Schachtel mit Pflegetuch – bereit zum Verschenken.</p>
+            <p>Jede Bestellung kommt liebevoll verpackt – bereit zum Verschenken.</p>
           </div>
         </div>
       </section>
@@ -189,22 +189,22 @@ export default function HomePage() {
           {giftImage ? (
             <Image src={giftImage} alt="Nodotempo Geschenkverpackung" fill sizes="(max-width: 900px) 100vw, 50vw" />
           ) : (
-            <ProductImage product={catalog.find((p) => p.slug === "linea-oro") ?? catalog[0]} />
+            <ProductImage product={catalog.find((p) => p.slug === "nodo-rosso") ?? catalog[0]} />
           )}
         </div>
         <div className="gift-copy">
           <p className="eyebrow">Geschenkidee</p>
           <h2 className="h2">Ein Geschenk, das bleibt.</h2>
           <p>
-            Für jemanden, der schon eine Uhr besitzt – oder für jemanden, der keine braucht. Mit unserem Größenberater
-            findest du auch ohne Maßband die richtige Größe, und der Umtausch ist kostenlos.
+            Für jemanden, der schon eine Uhr besitzt – oder für jemanden, der keine braucht. Dank der Schiebeknoten
+            passt jedes Armband ohne Größenraten. Du musst nur die Farbe wählen.
           </p>
           <div className="hero-actions">
             <Link href="/shop" className="btn btn-primary">
               Geschenk finden
             </Link>
-            <Link href="/groessenberater" className="btn btn-ghost">
-              Größenberater
+            <Link href="/#farben" className="btn btn-ghost">
+              Farben ansehen
             </Link>
           </div>
         </div>

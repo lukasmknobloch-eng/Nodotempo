@@ -54,8 +54,8 @@ const faqs: { group: string; items: { q: string; a: React.ReactNode }[] }[] = [
         ),
       },
       {
-        q: "Kann ich die Größe umtauschen?",
-        a: "Ja, der Umtausch in eine andere Größe ist kostenlos. Schreib uns kurz, wir senden dir ein Rücksendeetikett.",
+        q: "Kann ich die Farbe umtauschen?",
+        a: "Ja. Schreib uns kurz mit deiner Bestellnummer und der gewünschten Farbe – wir kümmern uns um den Rest.",
       },
     ],
   },
@@ -66,21 +66,22 @@ const faqs: { group: string; items: { q: string; a: React.ReactNode }[] }[] = [
         q: "Welche Größe passt mir?",
         a: (
           <>
-            Unser <Link href="/groessenberater">Größenberater</Link> hilft dir in wenigen Sekunden – auch ohne Maßband.
+            Alle Armbänder sind über zwei Schiebeknoten stufenlos verstellbar und passen damit an nahezu jedes
+            Handgelenk. Wie das Verstellen funktioniert, zeigen wir unter <Link href="/tragen">Tragen & Größe</Link>.
           </>
         ),
       },
       {
         q: "Kann ich das Armband neben meiner Uhr tragen?",
-        a: "Dafür sind unsere Armbänder entworfen. Wir empfehlen, das Armband mit etwas Abstand zur Uhr zu tragen – so schützt du das Gehäuse vor Kratzern. Edelstahl- und Lederarmbänder sind dabei besonders unkompliziert.",
+        a: "Dafür sind unsere Armbänder entworfen. Die leichte Stoffkordel kratzt nicht am Gehäuse und trägt kaum auf. Wir empfehlen, das Armband mit etwas Abstand zur Uhr zu tragen, damit beide frei sitzen.",
       },
       {
-        q: "Sind die Armbänder wasserfest?",
-        a: "Unsere Edelstahlarmbänder sind wasserfest. Natursteinarmbänder, Leder und Seidenkordel solltest du vor dem Duschen, Schwimmen und Sport ablegen.",
+        q: "Darf das Armband nass werden?",
+        a: "Die Kordel ist alltagstauglich. Wird sie nass, lass sie einfach an der Luft trocknen. Zum Reinigen genügt lauwarmes Wasser mit etwas milder Seife.",
       },
       {
-        q: "Sind die Materialien hautverträglich?",
-        a: "Wir verwenden nickelfreien Edelstahl 316L, der auch für Uhrengehäuse und medizinische Anwendungen genutzt wird.",
+        q: "Kann ich mehrere Armbänder zusammen tragen?",
+        a: "Unbedingt. Zwei oder drei Farben übereinander sehen besonders gut aus – zum Beispiel Notte mit Rosso oder Kaki mit Sole.",
       },
     ],
   },

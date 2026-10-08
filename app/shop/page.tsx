@@ -5,7 +5,7 @@ import { ShopBrowser } from "./ShopBrowser";
 
 export const metadata: Metadata = {
   title: "Shop – Alle Armbänder",
-  description: "Alle Nodotempo Armbänder: Naturstein, italienisches Leder, Edelstahl und Seidenkordel.",
+  description: "Alle Nodotempo Armbänder: handgeknüpfte, verstellbare Stoffarmbänder in 15 Farben.",
 };
 
 export default function ShopPage() {

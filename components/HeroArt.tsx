@@ -1,11 +1,14 @@
-// Illustration für die Startseite: Uhr und Armband an einem Handgelenk, von
-// oben gesehen. Wird ersetzt, sobald public/bilder/hero.jpg existiert.
+import { CordPattern, shade } from "./BraceletArt";
+
+// Illustration für die Startseite: Uhr und Nodotempo-Kordelarmband an einem
+// Handgelenk, von oben gesehen. Wird ersetzt, sobald public/bilder/hero.jpg existiert.
+
+const cord = { primary: "#8b2a2c", secondary: "#e2b07a", background: "#000000" };
 
 export function HeroArt({ className }: { className?: string }) {
-  const beads = Array.from({ length: 15 }, (_, i) => {
-    const u = (i - 7) / 7; // -1 … 1
-    return { i, x: 300 + u * 230, y: 560 + u * u * -34 };
-  });
+  const curve = "M 40 600 Q 300 520 560 600";
+  const curve2 = "M 112 566 Q 190 548.6 268 545.6";
+  const edge = shade(cord.primary, -0.45);
   const markers = Array.from({ length: 12 }, (_, i) => i * 30);
 
   return (
@@ -30,11 +33,7 @@ export function HeroArt({ className }: { className?: string }) {
           <stop offset="0%" stopColor="#2c2a27" />
           <stop offset="100%" stopColor="#0d0d0c" />
         </radialGradient>
-        <radialGradient id="h-bead" cx="34%" cy="30%" r="75%">
-          <stop offset="0%" stopColor="#6a6764" />
-          <stop offset="35%" stopColor="#232220" />
-          <stop offset="100%" stopColor="#050505" />
-        </radialGradient>
+        <CordPattern art={cord} id="h-cord" />
         <filter id="h-shadow" x="-30%" y="-30%" width="160%" height="160%">
           <feGaussianBlur stdDeviation="10" />
         </filter>
@@ -71,15 +70,23 @@ export function HeroArt({ className }: { className?: string }) {
       <rect x="299.2" y="206" width="1.6" height="112" fill="#c9a45c" transform="rotate(200 300 300)" />
       <circle cx="300" cy="300" r="6" fill="#c9a45c" />
 
-      {/* Nodotempo-Armband daneben */}
-      <path d="M 70 585 Q 300 520 530 585" stroke="#000" strokeWidth="26" opacity="0.45" fill="none" filter="url(#h-shadow)" />
-      {beads.map(({ i, x, y }) =>
-        i === 7 ? (
-          <rect key={i} x={x - 10} y={y - 19} width="20" height="38" rx="5" fill="url(#h-case)" />
-        ) : (
-          <circle key={i} cx={x} cy={y} r="17" fill="url(#h-bead)" />
-        ),
-      )}
+      {/* Nodotempo-Kordelarmband daneben */}
+      <path d={curve} stroke="#000" strokeWidth="18" opacity="0.5" fill="none" filter="url(#h-shadow)" transform="translate(0 10)" />
+      {[curve, curve2].map((d) => (
+        <g key={d} fill="none" strokeLinecap="round">
+          <path d={d} stroke={edge} strokeWidth="15" />
+          <path d={d} stroke="url(#h-cord-pat)" strokeWidth="13" />
+          <path d={d} stroke="#fff" strokeOpacity="0.18" strokeWidth="3" transform="translate(0 -2)" />
+        </g>
+      ))}
+      {[{ x: 124, y: 571.4, r: -12 }, { x: 258, y: 553.8, r: -3 }].map((k) => (
+        <g key={k.x} transform={`translate(${k.x} ${k.y}) rotate(${k.r})`}>
+          <ellipse rx="22" ry="18" fill="url(#h-cord-pat)" stroke={edge} strokeWidth="1.6" />
+          {[-11, -4, 3, 10].map((x) => (
+            <path key={x} d={`M ${x} -17 Q ${x + 5} 0 ${x} 17`} stroke={edge} strokeWidth="1.5" fill="none" opacity="0.75" />
+          ))}
+        </g>
+      ))}
     </svg>
   );
 }

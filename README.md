@@ -5,11 +5,11 @@ Hochwertiger Online-Shop für Nodotempo-Armbänder. Gebaut mit **Next.js** und *
 
 ## Funktionen
 
-- Startseite mit Markengeschichte, Kategorien und ausgewählten Produkten
-- Shop mit Kategorie-Filter, Sortierung und Suche
-- Produktseiten mit Bildergalerie, Größenwahl, Menge, Lieferdatum, Material- & Pflegehinweisen
+- Startseite mit Markengeschichte, Farbübersicht und ausgewählten Armbändern
+- Shop mit allen 15 Farben, Sortierung und Suche
+- Produktseiten mit Bildergalerie, Farbwechsler, Menge, Lieferdatum, Material- & Pflegehinweisen
 - Warenkorb (Seitenleiste + eigene Seite) mit Fortschrittsbalken „kostenloser Versand“
-- Wunschliste, Schnellsuche, Größenberater mit Rechner
+- Wunschliste, Schnellsuche, Seite „Tragen & Größe“
 - Sicherer Checkout über Stripe (Rabattcodes, Express-/Standardversand, Lieferadresse)
 - Bestellbestätigungsseite, Webhook für bezahlte Bestellungen
 - Kontaktformular, Newsletter-Anmeldung, FAQ, Versand & Rückgabe
@@ -29,8 +29,8 @@ npm run dev                  # http://localhost:3000
 Fotos einfach in den Ordner des jeweiligen Artikels legen:
 
 ```
-public/produkte/ora-onyx/1.jpg
-public/produkte/ora-onyx/2.jpg
+public/produkte/nodo-notte/1.jpg
+public/produkte/nodo-notte/2.jpg
 ```
 
 - Erlaubt: `.jpg`, `.jpeg`, `.png`, `.webp`, `.avif` – sortiert nach Dateiname (1, 2, 3 …).
@@ -52,7 +52,7 @@ automatisch mit jedem Push).
 
 ## Produkte, Preise & Texte ändern
 
-- **Produkte:** `lib/products.ts` – Name, Preis (in Cent), Beschreibung, Größen, Badges, „ausverkauft“.
+- **Produkte:** `lib/products.ts` – Farben, Namen, Beschreibungen, Preis (`PRICE`, in Cent), „ausverkauft“. Eine neue Farbe = eine neue Zeile in der Farbliste.
 - **Shop-Einstellungen:** `lib/site.ts` – Versandkosten, Grenze für kostenlosen Versand,
   Lieferländer, Rückgabefrist, Firmendaten fürs Impressum.
 - **Logo:** `components/Logo.tsx` (vorläufiges Logo) und `app/icon.svg` (Browser-Icon).

@@ -9,17 +9,15 @@ const columns = [
     title: "Shop",
     links: [
       { href: "/shop", label: "Alle Armbänder" },
-      { href: "/shop?kategorie=perlen", label: "Naturstein" },
-      { href: "/shop?kategorie=leder", label: "Leder" },
-      { href: "/shop?kategorie=metall", label: "Edelstahl" },
-      { href: "/shop?kategorie=kordel", label: "Kordel" },
+      { href: "/#farben", label: "Alle Farben" },
+      { href: "/shop?sortierung=neu", label: "Neuheiten" },
       { href: "/wunschliste", label: "Wunschliste" },
     ],
   },
   {
     title: "Service",
     links: [
-      { href: "/groessenberater", label: "Größenberater" },
+      { href: "/tragen", label: "Tragen & Größe" },
       { href: "/versand-rueckgabe", label: "Versand & Rückgabe" },
       { href: "/faq", label: "Häufige Fragen" },
       { href: "/kontakt", label: "Kontakt" },
@@ -29,7 +27,7 @@ const columns = [
     title: "Nodotempo",
     links: [
       { href: "/ueber-uns", label: "Die Marke" },
-      { href: "/ueber-uns#pflege", label: "Material & Pflege" },
+      { href: "/tragen#pflege", label: "Pflege" },
       { href: site.instagram, label: "Instagram" },
     ],
   },

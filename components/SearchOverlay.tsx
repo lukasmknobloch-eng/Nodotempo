@@ -46,7 +46,7 @@ export function SearchOverlay() {
           <input
             ref={inputRef}
             type="search"
-            placeholder="Wonach suchst du? z. B. Onyx, Leder, Gold"
+            placeholder="Wonach suchst du? z. B. Blau, Grün, Rot"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             aria-label="Suchbegriff"
@@ -59,7 +59,7 @@ export function SearchOverlay() {
           {query.trim() === "" ? (
             <div className="search-suggestions">
               <span className="eyebrow">Beliebte Suchen</span>
-              {["Onyx", "Leder", "Gold", "Edelstahl", "Knoten"].map((s) => (
+              {["Blau", "Grün", "Rot", "Rosa", "Braun"].map((s) => (
                 <button key={s} className="chip" onClick={() => setQuery(s)}>
                   {s}
                 </button>

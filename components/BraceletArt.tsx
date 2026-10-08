@@ -1,18 +1,22 @@
 import type { Product } from "@/lib/products";
 
-// Gezeichnete Produktvorschau, die angezeigt wird, solange für einen Artikel
-// noch keine Fotos in public/produkte/<slug>/ liegen.
+// Gezeichnete Produktvorschau eines geknüpften Kordelarmbands mit zwei
+// Schiebeknoten. Wird angezeigt, solange für einen Artikel noch keine Fotos in
+// public/produkte/<slug>/ liegen.
 
 type Art = Product["art"];
 
 const W = 400;
 const H = 500;
 const CX = 200;
-const CY = 250;
-const RX = 128;
-const RY = 60;
+const CY = 248;
+const RX = 112;
+const RY = 148;
+const GAP = 11; // Abstand der beiden Kordelstränge im Knotenbereich
+const T1 = -1.15; // Beginn des doppelt gelegten Bereichs
+const T2 = 0.25; // Ende des doppelt gelegten Bereichs
 
-function shade(hex: string, amount: number) {
+export function shade(hex: string, amount: number) {
   const n = parseInt(hex.slice(1), 16);
   const mix = (c: number) => Math.round(amount >= 0 ? c + (255 - c) * amount : c * (1 + amount));
   const r = mix((n >> 16) & 255);
@@ -21,37 +25,91 @@ function shade(hex: string, amount: number) {
   return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
 }
 
-function point(t: number) {
-  return { x: CX + RX * Math.cos(t), y: CY + RY * Math.sin(t), depth: Math.sin(t) };
+function artId(art: Art) {
+  return `c${(art.primary + art.secondary).replace(/[^a-z0-9]/gi, "")}`;
 }
 
-/** Parameter t für n Punkte mit gleichem Abstand entlang der Ellipse */
-function evenlySpaced(n: number) {
-  const steps = 720;
-  const start = Math.PI / 2;
-  const lengths = [0];
-  for (let i = 1; i <= steps; i++) {
-    const a = point(start + ((i - 1) / steps) * Math.PI * 2);
-    const b = point(start + (i / steps) * Math.PI * 2);
-    lengths.push(lengths[i - 1] + Math.hypot(b.x - a.x, b.y - a.y));
-  }
-  const total = lengths[steps];
-  return Array.from({ length: n }, (_, k) => {
-    const target = (k / n) * total;
-    let i = 0;
-    while (lengths[i + 1] < target) i++;
-    const frac = (target - lengths[i]) / (lengths[i + 1] - lengths[i] || 1);
-    return start + ((i + frac) / steps) * Math.PI * 2;
-  });
+/** Punkt auf der Ellipse, optional nach außen versetzt */
+function at(t: number, offset = 0) {
+  const nx = Math.cos(t) / RX;
+  const ny = Math.sin(t) / RY;
+  const len = Math.hypot(nx, ny);
+  return {
+    x: CX + RX * Math.cos(t) + (nx / len) * offset,
+    y: CY + RY * Math.sin(t) + (ny / len) * offset,
+  };
+}
+
+function arcPath(from: number, to: number, offset: number) {
+  const steps = 40;
+  return Array.from({ length: steps + 1 }, (_, i) => {
+    const p = at(from + ((to - from) * i) / steps, offset);
+    return `${i === 0 ? "M" : "L"} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`;
+  }).join(" ");
 }
 
 function tangentDeg(t: number) {
   return (Math.atan2(RY * Math.cos(t), -RX * Math.sin(t)) * 180) / Math.PI;
 }
 
+function hashRotation(art: Art) {
+  let h = 0;
+  for (const ch of art.primary + art.secondary) h = (h * 31 + ch.charCodeAt(0)) | 0;
+  return (Math.abs(h) % 36) - 22; // −22° … 13°
+}
+
+/** Musterdefinition der Kordel (Rautenmuster wie bei geflochtener Kordel) */
+export function CordPattern({ art, id }: { art: Art; id: string }) {
+  return (
+    <pattern id={`${id}-pat`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="6" height="6" fill={art.primary} />
+      <rect x="1.6" y="1.6" width="2.8" height="2.8" fill={art.secondary} />
+      <path d="M0 0H6M0 0V6" stroke={shade(art.primary, -0.3)} strokeWidth="0.6" />
+    </pattern>
+  );
+}
+
+function Strand({ d, id, art, width = 10 }: { d: string; id: string; art: Art; width?: number }) {
+  return (
+    <g fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <path d={d} stroke={shade(art.primary, -0.45)} strokeWidth={width + 2} />
+      <path d={d} stroke={`url(#${id}-pat)`} strokeWidth={width} />
+      <path d={d} stroke="#fff" strokeOpacity="0.2" strokeWidth={width * 0.25} transform="translate(-1 -1.2)" />
+    </g>
+  );
+}
+
+function Knot({ t, id, art }: { t: number; id: string; art: Art }) {
+  const p = at(t, GAP / 2);
+  const edge = shade(art.primary, -0.45);
+  return (
+    <g transform={`translate(${p.x} ${p.y}) rotate(${tangentDeg(t)})`}>
+      <ellipse rx="17" ry="14" fill={`url(#${id}-pat)`} stroke={edge} strokeWidth="1.4" />
+      {[-9, -3, 3, 9].map((x) => (
+        <path key={x} d={`M ${x} -13 Q ${x + 4} 0 ${x} 13`} stroke={edge} strokeWidth="1.3" fill="none" strokeOpacity="0.75" />
+      ))}
+      <ellipse rx="12" ry="5" cy="-5" fill="#fff" opacity="0.14" />
+    </g>
+  );
+}
+
+function Tail({ from, to, id, art }: { from: number; to: number; id: string; art: Art }) {
+  const end = at(to, GAP);
+  return (
+    <g>
+      <Strand d={arcPath(from, to, GAP)} id={id} art={art} />
+      <circle cx={end.x} cy={end.y} r="5" fill={shade(art.primary, -0.5)} />
+      <circle cx={end.x} cy={end.y} r="2.4" fill={shade(art.secondary, -0.2)} opacity="0.7" />
+    </g>
+  );
+}
+
 export function BraceletArt({ art, className, label }: { art: Art; className?: string; label?: string }) {
-  const id = `a${(art.style + art.primary + (art.secondary ?? "") + art.accent).replace(/[^a-z0-9]/gi, "")}`;
-  const secondary = art.secondary ?? art.primary;
+  const id = artId(art);
+  const loop = arcPath(0, Math.PI * 2, 0) + " Z";
+  const outer = arcPath(T1, T2, GAP);
+  const tailA = { from: T1, to: T1 - 0.16 };
+  const tailB = { from: T2, to: T2 + 0.16 };
 
   return (
     <svg
@@ -62,155 +120,46 @@ export function BraceletArt({ art, className, label }: { art: Art; className?: s
       preserveAspectRatio="xMidYMid slice"
     >
       <defs>
-        <radialGradient id={`${id}-bg`} cx="50%" cy="42%" r="75%">
-          <stop offset="0%" stopColor={shade(art.background, 0.45)} />
+        <radialGradient id={`${id}-bg`} cx="50%" cy="45%" r="75%">
+          <stop offset="0%" stopColor={shade(art.background, 0.5)} />
           <stop offset="100%" stopColor={art.background} />
         </radialGradient>
-        <radialGradient id={`${id}-bead1`} cx="34%" cy="30%" r="75%">
-          <stop offset="0%" stopColor={shade(art.primary, 0.55)} />
-          <stop offset="35%" stopColor={shade(art.primary, 0.1)} />
-          <stop offset="100%" stopColor={shade(art.primary, -0.45)} />
-        </radialGradient>
-        <radialGradient id={`${id}-bead2`} cx="34%" cy="30%" r="75%">
-          <stop offset="0%" stopColor={shade(secondary, 0.55)} />
-          <stop offset="35%" stopColor={shade(secondary, 0.1)} />
-          <stop offset="100%" stopColor={shade(secondary, -0.45)} />
-        </radialGradient>
-        <linearGradient id={`${id}-metal`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={shade(art.accent, 0.6)} />
-          <stop offset="45%" stopColor={art.accent} />
-          <stop offset="55%" stopColor={shade(art.accent, -0.25)} />
-          <stop offset="100%" stopColor={shade(art.accent, 0.3)} />
-        </linearGradient>
-        <linearGradient id={`${id}-link`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor={shade(art.primary, -0.15)} />
-          <stop offset="40%" stopColor={secondary} />
-          <stop offset="60%" stopColor={art.primary} />
-          <stop offset="100%" stopColor={shade(art.primary, -0.3)} />
-        </linearGradient>
-        <filter id={`${id}-blur`} x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="14" />
+        <CordPattern art={art} id={id} />
+        <filter id={`${id}-blur`} x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="4" />
         </filter>
       </defs>
 
       <rect width={W} height={H} fill={`url(#${id}-bg)`} />
-      <ellipse cx={CX} cy={CY + RY + 48} rx={RX * 0.95} ry={20} fill="#000" opacity="0.16" filter={`url(#${id}-blur)`} />
 
-      {art.style === "beads" && <Beads id={id} />}
-      {art.style === "chain" && <Chain id={id} />}
-      {art.style === "leather" && <Leather id={id} art={art} />}
-      {art.style === "cord" && <Cord id={id} art={art} />}
+      <g transform={`rotate(${hashRotation(art)} ${CX} ${CY})`}>
+        {/* Schatten */}
+        <g transform="translate(5 8)" filter={`url(#${id}-blur)`} opacity="0.22" stroke="#000" fill="none" strokeWidth="12">
+          <path d={loop} />
+          <path d={arcPath(T1 - 0.16, T2 + 0.16, GAP)} />
+        </g>
+
+        <Strand d={loop} id={id} art={art} />
+        <Strand d={outer} id={id} art={art} />
+        <Tail {...tailA} id={id} art={art} />
+        <Tail {...tailB} id={id} art={art} />
+        <Knot t={T1 + 0.08} id={id} art={art} />
+        <Knot t={T2 - 0.08} id={id} art={art} />
+      </g>
     </svg>
   );
 }
 
-function Beads({ id }: { id: string }) {
-  const items = evenlySpaced(24)
-    .map((t, i) => ({ i, t, ...point(t) }))
-    .sort((a, b) => a.y - b.y);
-
+/** Runder Farbtupfer im Kordelmuster, z. B. für die Farbauswahl */
+export function CordSwatch({ art, size = 44 }: { art: Art; size?: number }) {
+  const id = `${artId(art)}-sw`;
   return (
-    <g>
-      {items.map(({ i, t, x, y, depth }) => {
-        const scale = 0.84 + 0.16 * ((depth + 1) / 2);
-        const r = 15.5 * scale;
-        const dim = depth < 0 ? -depth * 0.35 : 0;
-        if (i === 0) {
-          // Metall-Element vorne in der Mitte
-          return (
-            <g key={i} transform={`translate(${x} ${y}) rotate(${tangentDeg(t)})`}>
-              <rect x={-9} y={-r * 1.02} width={18} height={r * 2.04} rx={4} fill={`url(#${id}-metal)`} />
-              <rect x={-9} y={-r * 1.02} width={18} height={r * 2.04} rx={4} fill="none" stroke="#000" strokeOpacity="0.12" />
-            </g>
-          );
-        }
-        return (
-          <g key={i}>
-            <circle cx={x} cy={y} r={r} fill={`url(#${id}-bead${i % 3 === 1 ? 2 : 1})`} />
-            {dim > 0 && <circle cx={x} cy={y} r={r} fill="#000" opacity={dim} />}
-          </g>
-        );
-      })}
-    </g>
-  );
-}
-
-function Chain({ id }: { id: string }) {
-  const items = evenlySpaced(30)
-    .map((t, i) => ({ i, t, ...point(t) }))
-    .sort((a, b) => a.y - b.y);
-
-  return (
-    <g>
-      {items.map(({ i, t, x, y, depth }) => {
-        const scale = 0.8 + 0.2 * ((depth + 1) / 2);
-        const w = (i === 0 ? 34 : 24) * scale;
-        const h = 26 * scale;
-        const dim = depth < 0 ? -depth * 0.4 : 0;
-        return (
-          <g key={i} transform={`translate(${x} ${y}) rotate(${tangentDeg(t)})`}>
-            <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={3} fill={`url(#${id}-${i === 0 ? "metal" : "link"})`} />
-            <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={3} fill="none" stroke="#000" strokeOpacity="0.18" strokeWidth={0.8} />
-            {i !== 0 && <line x1={-w / 2 + 3} y1={0} x2={w / 2 - 3} y2={0} stroke="#fff" strokeOpacity="0.35" strokeWidth={0.8} />}
-            {dim > 0 && <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={3} fill="#000" opacity={dim} />}
-          </g>
-        );
-      })}
-    </g>
-  );
-}
-
-const upperArc = (dy: number) => `M ${CX - RX} ${CY + dy} A ${RX} ${RY} 0 0 1 ${CX + RX} ${CY + dy}`;
-const lowerArc = (dy: number) => `M ${CX + RX} ${CY + dy} A ${RX} ${RY} 0 0 1 ${CX - RX} ${CY + dy}`;
-
-function Leather({ id, art }: { id: string; art: Art }) {
-  const secondary = art.secondary ?? art.primary;
-  return (
-    <g fill="none" strokeLinecap="round">
-      {[-9, 9].map((dy) => (
-        <path key={`b${dy}`} d={upperArc(dy)} stroke={shade(art.primary, -0.35)} strokeWidth={13} />
-      ))}
-      {[-9, 9].map((dy) => (
-        <g key={`f${dy}`}>
-          <path d={lowerArc(dy)} stroke={art.primary} strokeWidth={14} />
-          <path d={lowerArc(dy - 3)} stroke={secondary} strokeWidth={3} strokeOpacity="0.6" />
-          <path d={lowerArc(dy)} stroke={shade(art.primary, 0.45)} strokeWidth={0.9} strokeDasharray="4 5" strokeOpacity="0.7" />
-        </g>
-      ))}
-      <g transform={`translate(${CX} ${CY + RY})`}>
-        <rect x={-26} y={-24} width={52} height={48} rx={7} fill={`url(#${id}-metal)`} />
-        <rect x={-26} y={-24} width={52} height={48} rx={7} stroke="#000" strokeOpacity="0.15" />
-        <line x1={0} y1={-24} x2={0} y2={24} stroke="#000" strokeOpacity="0.25" />
-      </g>
-    </g>
-  );
-}
-
-function Cord({ id, art }: { id: string; art: Art }) {
-  const secondary = art.secondary ?? art.primary;
-  const right = point(Math.PI / 2 - 0.9);
-  return (
-    <g fill="none" strokeLinecap="round">
-      {[-4, 4].map((dy) => (
-        <path key={`b${dy}`} d={upperArc(dy)} stroke={shade(art.primary, -0.3)} strokeWidth={5} />
-      ))}
-      {[-4, 4].map((dy) => (
-        <g key={`f${dy}`}>
-          <path d={lowerArc(dy)} stroke={art.primary} strokeWidth={5.5} />
-          <path d={lowerArc(dy)} stroke={shade(secondary, 0.35)} strokeWidth={5.5} strokeDasharray="1.5 3" strokeOpacity="0.5" />
-        </g>
-      ))}
-      {/* Der Knoten */}
-      <g transform={`translate(${CX} ${CY + RY})`}>
-        <ellipse rx={20} ry={14} stroke={shade(art.primary, -0.2)} strokeWidth={8} />
-        <path d="M -22 -6 C -6 -22, 6 22, 22 6" stroke={art.primary} strokeWidth={8} />
-        <path d="M -22 6 C -6 22, 6 -22, 22 -6" stroke={shade(art.primary, 0.15)} strokeWidth={8} />
-        <path d="M -22 6 C -6 22, 6 -22, 22 -6" stroke={shade(secondary, 0.5)} strokeWidth={8} strokeDasharray="1.5 3" strokeOpacity="0.4" />
-      </g>
-      {/* Silberelement */}
-      <g transform={`translate(${right.x} ${right.y}) rotate(${tangentDeg(Math.PI / 2 - 0.9)})`}>
-        <rect x={-11} y={-13} width={22} height={26} rx={5} fill={`url(#${id}-metal)`} stroke="#000" strokeOpacity="0.15" />
-      </g>
-    </g>
+    <svg width={size} height={size} viewBox="0 0 44 44" aria-hidden="true">
+      <defs>
+        <CordPattern art={art} id={id} />
+      </defs>
+      <circle cx="22" cy="22" r="21" fill={`url(#${id}-pat)`} />
+      <circle cx="22" cy="22" r="20.5" fill="none" stroke="#000" strokeOpacity="0.12" />
+    </svg>
   );
 }

@@ -3,7 +3,6 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import type { CatalogProduct } from "@/lib/catalog";
-import { categories, type Category } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 import { matchesQuery } from "@/lib/search";
 import { CloseIcon } from "@/components/Icons";
@@ -22,11 +21,9 @@ export function ShopBrowser({ catalog }: { catalog: CatalogProduct[] }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const category = params.get("kategorie") as Category | null;
   const sortParam = params.get("sortierung");
   const sort: SortKey = sortParam && sortParam in sorts ? (sortParam as SortKey) : "empfohlen";
   const query = params.get("q") ?? "";
-  const activeCategory = categories.find((c) => c.id === category);
 
   const update = (key: string, value: string | null) => {
     const next = new URLSearchParams(params.toString());
@@ -39,41 +36,25 @@ export function ShopBrowser({ catalog }: { catalog: CatalogProduct[] }) {
   const visible = useMemo(
     () =>
       catalog
-        .filter((p) => !activeCategory || p.category === activeCategory.id)
         .filter((p) => !query || matchesQuery(query, p))
         .sort(sorts[sort].fn),
-    [catalog, activeCategory, query, sort],
+    [catalog, query, sort],
   );
 
   return (
     <>
       <header className="page-head">
         <p className="eyebrow">Shop</p>
-        <h1 className="h1">{activeCategory ? activeCategory.label : "Alle Armbänder"}</h1>
+        <h1 className="h1">Alle Armbänder</h1>
         <p className="page-lead">
-          {activeCategory
-            ? activeCategory.description
-            : "Naturstein, Leder, Edelstahl und Kordel – jedes Stück entworfen, um neben der Uhr zu bestehen."}
+          Handgeknüpfte Stoffarmbänder in {catalog.length} Farben – stufenlos verstellbar und entworfen, um neben der Uhr
+          zu bestehen. Oder ganz für sich.
         </p>
       </header>
 
       <div className="toolbar">
-        <div className="chips" role="group" aria-label="Kategorie filtern">
-          <button className={`chip ${!activeCategory ? "is-active" : ""}`} onClick={() => update("kategorie", null)}>
-            Alle
-          </button>
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              className={`chip ${activeCategory?.id === c.id ? "is-active" : ""}`}
-              onClick={() => update("kategorie", c.id)}
-            >
-              {c.label}
-            </button>
-          ))}
-        </div>
+        <span className="muted small">{visible.length} Armbänder</span>
         <div className="toolbar-right">
-          <span className="muted small">{visible.length} Artikel</span>
           <label className="select">
             <span className="sr-only">Sortieren nach</span>
             <select value={sort} onChange={(e) => update("sortierung", e.target.value === "empfohlen" ? null : e.target.value)}>
