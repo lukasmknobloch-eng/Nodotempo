@@ -134,7 +134,7 @@ export function BraceletArt({ art, className, label }: { art: Art; className?: s
 
       <g transform={`rotate(${hashRotation(art)} ${CX} ${CY})`}>
         {/* Schatten */}
-        <g transform="translate(5 8)" filter={`url(#${id}-blur)`} opacity="0.22" stroke="#000" fill="none" strokeWidth="12">
+        <g transform="translate(5 8)" filter={`url(#${id}-blur)`} opacity="0.22" stroke="#121d35" fill="none" strokeWidth="12">
           <path d={loop} />
           <path d={arcPath(T1 - 0.16, T2 + 0.16, GAP)} />
         </g>
@@ -159,7 +159,7 @@ export function CordSwatch({ art, size = 44 }: { art: Art; size?: number }) {
         <CordPattern art={art} id={id} />
       </defs>
       <circle cx="22" cy="22" r="21" fill={`url(#${id}-pat)`} />
-      <circle cx="22" cy="22" r="20.5" fill="none" stroke="#000" strokeOpacity="0.12" />
+      <circle cx="22" cy="22" r="20.5" fill="none" stroke="#121d35" strokeOpacity="0.12" />
     </svg>
   );
 }
