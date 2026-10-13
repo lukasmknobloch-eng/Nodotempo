@@ -73,7 +73,7 @@ const faqs: { group: string; items: { q: string; a: React.ReactNode }[] }[] = [
       },
       {
         q: "Kann ich das Armband neben meiner Uhr tragen?",
-        a: "Dafür sind unsere Armbänder entworfen. Die leichte Stoffkordel kratzt nicht am Gehäuse und trägt kaum auf. Wir empfehlen, das Armband mit etwas Abstand zur Uhr zu tragen, damit beide frei sitzen.",
+        a: "Dafür sind unsere Armbänder entworfen. Die leichte Paracord-Kordel kratzt nicht am Gehäuse und trägt kaum auf. Wir empfehlen, das Armband mit etwas Abstand zur Uhr zu tragen, damit beide frei sitzen.",
       },
       {
         q: "Darf das Armband nass werden?",

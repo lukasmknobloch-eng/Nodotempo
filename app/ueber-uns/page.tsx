@@ -65,7 +65,7 @@ export default function AboutPage() {
           <div className="value">
             <h3>Die Kordel</h3>
             <p>
-              Eine fest geflochtene Stoffkordel mit feinem Rautenmuster – leicht, robust und angenehm auf der Haut.
+              Paracord aus Nylon oder Polyester – fest geflochten, mit feinem Rautenmuster, leicht, robust und angenehm auf der Haut.
             </p>
           </div>
           <div className="value">

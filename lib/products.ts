@@ -35,7 +35,7 @@ export const PRICE = 1790;
 export const ONE_SIZE = "Einheitsgröße · verstellbar";
 
 export const productInfo = {
-  material: "Geflochtene Stoffkordel mit Rautenmuster",
+  material: "Paracord (geflochtene Kordel) aus 100 % Polyamid (Nylon) oder 100 % Polyester – je nach Modell",
   details: [
     "Zwei Schiebeknoten – stufenlos verstellbar",
     "Von Hand geknüpft",
@@ -82,7 +82,7 @@ export const products: Product[] = colors.map((c, i) => ({
   featured: c.featured,
   rank: i + 1,
   added: colors.length - i,
-  shortDescription: `Geflochtene Stoffkordel in ${c.color}, stufenlos verstellbar.`,
+  shortDescription: `Paracord-Armband in ${c.color}, stufenlos verstellbar.`,
   description: `${c.mood} Wie jedes Nodotempo-Armband wird ${c.name} von Hand geknüpft. Zwei Schiebeknoten machen es stufenlos verstellbar – einfach an den Enden ziehen, bis es sitzt.`,
   sizes: [ONE_SIZE],
   art: { primary: c.primary, secondary: c.secondary, background: "#ece7df" },
