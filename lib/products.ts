@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  PRODUKTKATALOG
 //
-//  Hier werden alle Armbänder gepflegt. Preise in Cent (2900 = 29,00 €).
+//  Hier werden alle Armbänder gepflegt. Preise in Cent (1790 = 17,90 €).
 //
 //  BILDER: Lege Fotos einfach in den Ordner  public/produkte/<slug>/
 //  (z. B. public/produkte/nodo-acqua/1.jpg, 2.jpg, …). Sie erscheinen
@@ -31,7 +31,7 @@ export type Product = {
 };
 
 // Gemeinsame Angaben für alle Armbänder
-export const PRICE = 2900;
+export const PRICE = 1790;
 export const ONE_SIZE = "Einheitsgröße · verstellbar";
 
 export const productInfo = {

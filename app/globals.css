@@ -360,12 +360,10 @@ button {
   color: var(--ink);
 }
 .logo-word {
-  font-family: var(--serif);
-  font-size: 23px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin-right: -0.3em;
+  font-family: "Poppins", var(--sans);
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 .logo-light {
@@ -1907,9 +1905,7 @@ button {
     display: none !important;
   }
   .logo-word {
-    font-size: 18px;
-    letter-spacing: 0.24em;
-    margin-right: -0.24em;
+    font-size: 21px;
   }
   .logo svg {
     display: none;

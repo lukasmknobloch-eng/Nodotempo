@@ -4,6 +4,7 @@ import "@fontsource/cormorant-garamond/400.css";
 import "@fontsource/cormorant-garamond/400-italic.css";
 import "@fontsource/cormorant-garamond/500.css";
 import "@fontsource-variable/manrope";
+import "@fontsource/poppins/800.css"; // nur für den Logo-Schriftzug
 import "./globals.css";
 import { ShopProvider } from "@/components/ShopProvider";
 import { Header } from "@/components/Header";
