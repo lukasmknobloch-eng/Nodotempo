@@ -8,7 +8,7 @@ export const site = {
     "Nodotempo – handgeknüpfte Stoffarmbänder in 15 Farben. Entworfen, um neben der Uhr getragen zu werden – und ohne sie zu bestehen.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   email: "hallo@nodotempo.de",
-  instagram: "https://instagram.com/nodo.tempo",
+  instagram: "https://instagram.com/nodotempo",
 
   // Angaben für Impressum & Rechtstexte – bitte vor dem Livegang ausfüllen.
   company: {

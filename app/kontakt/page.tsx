@@ -22,7 +22,7 @@ export default function ContactPage() {
             </p>
             <p className="eyebrow">Instagram</p>
             <p>
-              <a href={site.instagram} target="_blank" rel="noreferrer">@nodo.tempo</a>
+              <a href={site.instagram} target="_blank" rel="noreferrer">@nodotempo</a>
             </p>
           </div>
         </div>
