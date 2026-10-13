@@ -27,7 +27,7 @@ const company = {
   city: "[PLZ Ort]",
   email: "hallo@nodotempo.de",
   web: "nodotempo.de",
-  instagram: "@nodotempo",
+  instagram: "nodo.tempo",
 };
 
 const logoPath = fs
@@ -36,7 +36,7 @@ const logoPath = fs
 
 const logo = `<svg class="logo" viewBox="-795 -322 1615 472" fill="currentColor" aria-label="Nodotempo"><path d="${logoPath}"/></svg>`;
 
-const mark = `<svg class="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12.5" cy="16" r="8.5"/><circle cx="19.5" cy="16" r="8.5"/><line x1="19.5" y1="16" x2="19.5" y2="10.5"/></svg>`;
+const insta = `<svg class="insta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="0.6" fill="currentColor" stroke="none"/></svg>`;
 
 const FRONT = `
   <div class="front">
@@ -44,14 +44,14 @@ const FRONT = `
     <p class="eyebrow">Danke</p>
     ${logo}
     <div class="rule"></div>
-    <p class="lead">Schön, dass du da bist.</p>
+    <div class="handwriting" aria-hidden="true"></div>
     <p class="text">
       Dein Armband wurde von Hand geknüpft und mit Sorgfalt für dich verpackt.
-      Wir hoffen, es begleitet dich lange – neben der Uhr oder ganz für sich.
+      Wir hoffen, es begleitet dich lange, neben der Uhr oder ganz für sich.
     </p>
-    <p class="motto"><em>Nodo</em> – der Knoten. <em>Tempo</em> – die Zeit.</p>
+    <p class="motto"><em>Nodo</em>, der Knoten. <em>Tempo</em>, die Zeit.</p>
     </div>
-    <div class="foot">${mark}<span>${company.web} &nbsp;·&nbsp; ${company.instagram}</span></div>
+    <div class="foot"><span>${company.web}</span><span class="dot">·</span>${insta}<span>${company.instagram}</span></div>
   </div>`;
 
 const BACK = `
@@ -59,7 +59,7 @@ const BACK = `
     <section>
       <h2>Anlegen &amp; anpassen</h2>
       <p>Schiebe die beiden Knoten auseinander, um die Schlaufe zu weiten. Armband überstreifen und an beiden Enden
-      ziehen, bis es angenehm sitzt – etwa ein Finger breit Luft.</p>
+      ziehen, bis es angenehm sitzt. Etwa ein Finger breit Luft ist ideal.</p>
     </section>
     <section>
       <h2>Pflege</h2>
@@ -73,9 +73,9 @@ const BACK = `
     </section>
     <section>
       <h2>Fragen, Umtausch, Rückgabe</h2>
-      <p>Du hast 30 Tage Zeit. Schreib uns einfach an <strong>${company.email}</strong> – wir kümmern uns darum.</p>
+      <p>Du hast 30 Tage Zeit. Schreib uns einfach an <strong>${company.email}</strong>, wir kümmern uns darum.</p>
     </section>
-    <div class="share">Zeig uns deinen Look: <strong>${company.instagram}</strong></div>
+    <div class="share">Zeig uns deinen Look: ${insta}<strong>${company.instagram}</strong></div>
     <p class="maker">
       Hersteller: Nodotempo · ${company.owner} · ${company.street} · ${company.city} · ${company.email}
     </p>
@@ -114,13 +114,16 @@ body { font-family: "Manrope", sans-serif; color: var(--green); -webkit-print-co
 .front-main { margin: auto 0; display: flex; flex-direction: column; align-items: center; }
 .eyebrow { font-size: 6.5pt; font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
 .logo { width: 62mm; height: auto; margin-top: 5mm; color: var(--green); }
-.rule { width: 12mm; height: 0.3mm; background: var(--gold); margin: 7mm 0 6mm; }
+.rule { width: 12mm; height: 0.3mm; background: var(--gold); margin: 7mm 0 2mm; }
 .lead { font-family: "Cormorant Garamond", serif; font-size: 15pt; line-height: 1.2; }
-.text { font-size: 7.6pt; line-height: 1.6; color: var(--green-soft); margin-top: 3.5mm; max-width: 66mm; }
+.text { font-size: 7.6pt; line-height: 1.6; color: var(--green-soft); margin-top: 2mm; max-width: 66mm; }
 .motto { font-family: "Cormorant Garamond", serif; font-size: 10pt; margin-top: 5mm; }
 .motto em { font-style: italic; }
-.foot { display: flex; align-items: center; gap: 2mm; font-size: 6.5pt; letter-spacing: 0.12em; color: var(--green-soft); }
-.mark { width: 4.2mm; height: 4.2mm; color: var(--green); }
+.foot { display: flex; align-items: center; gap: 1.6mm; font-size: 6.5pt; letter-spacing: 0.12em; color: var(--green-soft); }
+.foot .dot { margin: 0 1mm; }
+.insta { width: 3.2mm; height: 3.2mm; color: var(--green); flex: none; }
+.share { display: flex; align-items: center; justify-content: center; gap: 1.4mm; }
+.handwriting { width: 100%; height: 24mm; }
 
 /* Rückseite */
 .back { display: flex; flex-direction: column; padding: 11mm 11mm 8mm; }
