@@ -10,7 +10,7 @@ import { formatPrice } from "@/lib/format";
 import { matchesQuery } from "@/lib/search";
 
 export function SearchOverlay() {
-  const { searchOpen, setSearchOpen, catalog } = useShop();
+  const { searchOpen, setSearchOpen, cards } = useShop();
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -24,8 +24,8 @@ export function SearchOverlay() {
   }, [searchOpen, setSearchOpen]);
 
   const results = useMemo(
-    () => (query.trim() ? catalog.filter((p) => matchesQuery(query, p)).slice(0, 6) : []),
-    [query, catalog],
+    () => (query.trim() ? cards.filter((c) => matchesQuery(query, c)).slice(0, 8) : []),
+    [query, cards],
   );
 
   const close = () => setSearchOpen(false);
@@ -35,32 +35,32 @@ export function SearchOverlay() {
       <div className="search-backdrop" onClick={close} />
       <div className="search-panel" role="dialog" aria-label="Suche">
         <form
-          className="search-form container"
+          className="search-form"
           onSubmit={(e) => {
             e.preventDefault();
             close();
             router.push(`/shop?q=${encodeURIComponent(query.trim())}`);
           }}
         >
-          <SearchIcon size={22} />
+          <SearchIcon size={18} />
           <input
             ref={inputRef}
             type="search"
-            placeholder="Wonach suchst du? z. B. Blau, Grün, Rot"
+            placeholder="Suche nach Farbe oder Modell"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             aria-label="Suchbegriff"
           />
-          <button type="button" className="icon-btn" aria-label="Suche schließen" onClick={close}>
-            <CloseIcon />
+          <button type="button" className="header-link" aria-label="Suche schließen" onClick={close}>
+            <CloseIcon size={18} />
           </button>
         </form>
-        <div className="container search-results">
+        <div className="search-results">
           {query.trim() === "" ? (
             <div className="search-suggestions">
-              <span className="eyebrow">Beliebte Suchen</span>
-              {["Blau", "Grün", "Rot", "Rosa", "Braun"].map((s) => (
-                <button key={s} className="chip" onClick={() => setQuery(s)}>
+              <span className="muted">Beliebt:</span>
+              {["Blau", "Gelb", "Sand", "Grün", "Bordeaux"].map((s) => (
+                <button key={s} className="text-btn" onClick={() => setQuery(s)}>
                   {s}
                 </button>
               ))}
@@ -69,13 +69,15 @@ export function SearchOverlay() {
             <p className="muted">Keine Treffer für „{query}“.</p>
           ) : (
             <ul className="search-grid">
-              {results.map((p) => (
-                <li key={p.slug}>
-                  <Link href={`/produkt/${p.slug}`} onClick={close} className="search-item">
-                    <ProductImage product={p} src={p.images[0]} sizes="80px" />
+              {results.map((c) => (
+                <li key={c.key}>
+                  <Link href={c.href} onClick={close} className="search-item">
+                    <ProductImage src={c.images[0]} alt={c.title} sizes="64px" />
                     <div>
-                      <p>{p.name}</p>
-                      <p className="muted small">{formatPrice(p.price)}</p>
+                      <p className="upper">{c.title}</p>
+                      <p className="muted">
+                        {c.subtitle} · {formatPrice(c.product.price)}
+                      </p>
                     </div>
                   </Link>
                 </li>

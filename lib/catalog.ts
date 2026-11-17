@@ -1,14 +1,15 @@
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
-import { products, type Product } from "./products";
+import { products, type Product, type Variant } from "./products";
 
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 
-export type CatalogProduct = Product & { images: string[] };
+export type CatalogVariant = Variant & { images: string[] };
+export type CatalogProduct = Omit<Product, "variants"> & { variants: CatalogVariant[]; images: string[] };
 
-/** Alle Bilder in public/<dir>/, sortiert nach Dateiname. */
+/** Alle Bilder direkt in public/<dir>/, sortiert nach Dateiname. */
 function listImages(dir: string): string[] {
   const abs = path.join(PUBLIC_DIR, dir);
   if (!fs.existsSync(abs)) return [];
@@ -28,7 +29,12 @@ export function findImage(base: string): string | undefined {
 }
 
 export function getCatalog(): CatalogProduct[] {
-  return products.map((p) => ({ ...p, images: listImages(`produkte/${p.slug}`) }));
+  return products.map((p) => ({
+    ...p,
+    // Bilder direkt im Modell-Ordner (z. B. für ein Modell, das noch keine Farben hat)
+    images: listImages(`produkte/${p.slug}`),
+    variants: p.variants.map((v) => ({ ...v, images: listImages(`produkte/${p.slug}/${v.id}`) })),
+  }));
 }
 
 export function getCatalogProduct(slug: string): CatalogProduct | undefined {

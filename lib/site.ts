@@ -5,10 +5,11 @@ export const site = {
   name: "Nodotempo",
   claim: "Armbänder, getragen neben der Zeit.",
   description:
-    "Nodotempo – handgeknüpfte Stoffarmbänder in 15 Farben. Entworfen, um neben der Uhr getragen zu werden – und ohne sie zu bestehen.",
+    "Nodotempo – handgeknüpfte Paracord-Armbänder. Entworfen, um neben der Uhr getragen zu werden – und ohne sie zu bestehen.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   email: "hallo@nodotempo.de",
-  instagram: "https://instagram.com/nodotempo",
+  instagram: "https://instagram.com/nodo.tempo",
+  instagramHandle: "nodo.tempo",
 
   // Angaben für Impressum & Rechtstexte – bitte vor dem Livegang ausfüllen.
   company: {
@@ -37,8 +38,9 @@ export const site = {
 } as const;
 
 export const navigation = [
-  { href: "/shop", label: "Shop" },
-  { href: "/#farben", label: "Farben" },
+  { href: "/shop", label: "Alle Armbänder" },
+  { href: "/produkt/nodo-no-2", label: "Nodo No. 2" },
+  { href: "/produkt/nodo-no-1", label: "Nodo No. 1" },
   { href: "/tragen", label: "Tragen & Größe" },
   { href: "/ueber-uns", label: "Die Marke" },
 ];

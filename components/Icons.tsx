@@ -109,3 +109,11 @@ export const ChevronIcon = ({ size = 16, className }: P) => (
     <path d="M6 9l6 6 6-6" />
   </svg>
 );
+
+export const InstagramIcon = ({ size = 18, className }: P) => (
+  <svg {...base(size)} className={className}>
+    <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.2" cy="6.8" r="0.7" fill="currentColor" stroke="none" />
+  </svg>
+);

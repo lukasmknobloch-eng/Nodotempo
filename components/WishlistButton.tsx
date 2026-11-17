@@ -3,9 +3,9 @@
 import { HeartIcon } from "./Icons";
 import { useShop } from "./ShopProvider";
 
-export function WishlistButton({ slug, className, withLabel }: { slug: string; className?: string; withLabel?: boolean }) {
+export function WishlistButton({ itemKey, className, withLabel }: { itemKey: string; className?: string; withLabel?: boolean }) {
   const { wishlist, toggleWishlist, ready } = useShop();
-  const active = ready && wishlist.includes(slug);
+  const active = ready && wishlist.includes(itemKey);
   return (
     <button
       type="button"
@@ -15,11 +15,11 @@ export function WishlistButton({ slug, className, withLabel }: { slug: string; c
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        toggleWishlist(slug);
+        toggleWishlist(itemKey);
       }}
     >
-      <HeartIcon size={18} filled={active} />
-      {withLabel && <span>{active ? "Auf der Wunschliste" : "Wunschliste"}</span>}
+      <HeartIcon size={16} filled={active} />
+      {withLabel && <span>{active ? "Auf der Wunschliste" : "Zur Wunschliste"}</span>}
     </button>
   );
 }

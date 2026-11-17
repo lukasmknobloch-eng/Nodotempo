@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getCatalog } from "@/lib/catalog";
 import { ShopBrowser } from "./ShopBrowser";
 
 export const metadata: Metadata = {
-  title: "Shop – Alle Armbänder",
-  description: "Alle Nodotempo Armbänder: handgeknüpfte, verstellbare Stoffarmbänder in 15 Farben.",
+  title: "Alle Armbänder",
+  description: "Alle Nodotempo Armbänder: handgeknüpftes Paracord, stufenlos verstellbar, in vielen Farben.",
 };
 
 export default function ShopPage() {
-  const catalog = getCatalog();
   return (
-    <div className="container page">
+    <div className="page-shop">
       <Suspense>
-        <ShopBrowser catalog={catalog} />
+        <ShopBrowser />
       </Suspense>
     </div>
   );

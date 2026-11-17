@@ -5,8 +5,8 @@ Hochwertiger Online-Shop für Nodotempo-Armbänder. Gebaut mit **Next.js** und *
 
 ## Funktionen
 
-- Startseite mit Markengeschichte, Farbübersicht und ausgewählten Armbändern
-- Shop mit allen 15 Farben, Sortierung und Suche
+- Startseite im Fashion-Stil: großes Bild, Produktraster, Bildstrecken, Instagram-Raster
+- Shop mit allen Farben, Filter nach Modell, Sortierung und Suche
 - Produktseiten mit Bildergalerie, Farbwechsler, Menge, Lieferdatum, Material- & Pflegehinweisen
 - Warenkorb (Seitenleiste + eigene Seite) mit Fortschrittsbalken „kostenloser Versand“
 - Wunschliste, Schnellsuche, Seite „Tragen & Größe“
@@ -26,33 +26,32 @@ npm run dev                  # http://localhost:3000
 
 ## Produktbilder einfügen
 
-Fotos einfach in den Ordner des jeweiligen Artikels legen:
+Jede Farbe hat einen eigenen Ordner:
 
 ```
-public/produkte/nodo-notte/1.jpg
-public/produkte/nodo-notte/2.jpg
+public/produkte/nodo-no-2/gelb/1.jpg   ← Hauptbild (Übersicht & Produktseite)
+public/produkte/nodo-no-2/gelb/2.jpg   ← erscheint beim Darüberfahren
+public/produkte/nodo-no-2/gelb/3.jpg   ← weitere Bilder in der Galerie
 ```
 
-- Erlaubt: `.jpg`, `.jpeg`, `.png`, `.webp`, `.avif` – sortiert nach Dateiname (1, 2, 3 …).
-- Das erste Bild ist das Hauptbild, das zweite erscheint beim Darüberfahren in der Übersicht.
-- Empfohlen: Hochformat 4:5, mindestens 1600 × 2000 px.
-- Solange kein Foto vorhanden ist, zeigt der Shop eine gezeichnete Vorschau.
+- Erlaubt: `.jpg`, `.jpeg`, `.png`, `.webp`, `.avif`, sortiert nach Dateiname.
+- Empfohlen: quadratisch, mindestens 1500 × 1500 px, gleicher Hintergrund wie die bisherigen Fotos.
+- Neue Farbe: in `lib/products.ts` eine Zeile bei `variants` ergänzen und den Ordner anlegen.
 
-Weitere Bilder der Website (optional, ersetzen die Illustrationen):
+Bilder der Startseite (optional, ersetzen die Produktfotos) in `public/bilder/`:
 
-| Datei                            | Wo                         |
-| -------------------------------- | -------------------------- |
-| `public/bilder/hero.jpg`         | Großes Bild Startseite     |
-| `public/bilder/story.jpg`        | „Der Name“ auf der Startseite |
-| `public/bilder/geschenk.jpg`     | Geschenk-Abschnitt         |
-| `public/bilder/marke.jpg`        | Seite „Die Marke“          |
-
-Nach dem Hinzufügen von Bildern muss die Seite neu gebaut werden (bei Vercel passiert das
-automatisch mit jedem Push).
+| Datei | Wo |
+| --- | --- |
+| `hero.jpg` | großes Bild ganz oben (Querformat) |
+| `editorial-1.jpg`, `editorial-2.jpg` | zwei Bilder nebeneinander |
+| `banner.jpg` | breites Bild für Nodo No. 1 |
+| `feature.jpg` | großes Bild links neben dem Produkt (Hochformat 4:5) |
+| `instagram-1.jpg` … `instagram-6.jpg` | Instagram-Raster |
+| `marke.jpg` | Seite „Die Marke“ |
 
 ## Produkte, Preise & Texte ändern
 
-- **Produkte:** `lib/products.ts` – Farben, Namen, Beschreibungen, Preis (`PRICE`, in Cent), „ausverkauft“. Eine neue Farbe = eine neue Zeile in der Farbliste.
+- **Produkte:** `lib/products.ts` – Modelle (Nodo No. 1, Nodo No. 2), Preise in Cent, Farben, „ausverkauft“ (`soldOut`), „bald verfügbar“ (`comingSoon`).
 - **Shop-Einstellungen:** `lib/site.ts` – Versandkosten, Grenze für kostenlosen Versand,
   Lieferländer, Rückgabefrist, Firmendaten fürs Impressum.
 - **Logo:** `components/Logo.tsx` (vorläufiges Logo) und `app/icon.svg` (Browser-Icon).

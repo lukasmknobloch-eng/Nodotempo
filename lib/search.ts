@@ -1,10 +1,10 @@
-import { productInfo, type Product } from "./products";
+import type { Card } from "./shop";
 
 const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 
-/** true, wenn alle Wörter der Suche im Produkt vorkommen */
-export function matchesQuery(query: string, p: Product) {
-  const haystack = norm(`${p.name} ${p.color} ${p.shortDescription} ${p.description} ${productInfo.material}`);
+/** true, wenn alle Wörter der Suche in Modell oder Farbe vorkommen */
+export function matchesQuery(query: string, card: Card) {
+  const haystack = norm(`${card.title} ${card.subtitle} ${card.product.subtitle} paracord armband`);
   return norm(query)
     .split(/\s+/)
     .filter(Boolean)

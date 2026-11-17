@@ -1,23 +1,23 @@
 import Image from "next/image";
-import { BraceletArt } from "./BraceletArt";
-import type { Product } from "@/lib/products";
 
 type Props = {
-  product: Pick<Product, "name" | "art">;
   src?: string;
+  alt: string;
   sizes?: string;
   preload?: boolean;
   className?: string;
+  /** Text, der ohne Foto in der Fläche steht */
+  placeholder?: string;
 };
 
-/** Zeigt das Produktfoto – oder die gezeichnete Vorschau, falls (noch) keines existiert. */
-export function ProductImage({ product, src, sizes = "(max-width: 768px) 50vw, 25vw", preload, className }: Props) {
+/** Produktfoto – oder eine ruhige Fläche, solange noch kein Foto existiert. */
+export function ProductImage({ src, alt, sizes = "(max-width: 768px) 50vw, 25vw", preload, className, placeholder }: Props) {
   return (
     <div className={`product-image ${className ?? ""}`}>
       {src ? (
-        <Image src={src} alt={product.name} fill sizes={sizes} preload={preload} quality={90} />
+        <Image src={src} alt={alt} fill sizes={sizes} preload={preload} quality={90} />
       ) : (
-        <BraceletArt art={product.art} label={product.name} />
+        <span className="product-image-empty">{placeholder ?? "Foto folgt"}</span>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import { ProductImage } from "@/components/ProductImage";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import { FreeShippingBar } from "@/components/FreeShippingBar";
 import { PaymentBadges } from "@/components/PaymentBadges";
-import { LockIcon, ReturnIcon, TruckIcon } from "@/components/Icons";
+import { ReturnIcon, TruckIcon } from "@/components/Icons";
 import { useCheckout } from "@/components/useCheckout";
 import { formatPrice } from "@/lib/format";
 import { site } from "@/lib/site";
@@ -23,8 +23,8 @@ export function CartView() {
       <div className="empty empty-page">
         <h1 className="h1">Dein Warenkorb ist leer.</h1>
         <p className="muted">Entdecke Armbänder, die neben der Zeit bestehen.</p>
-        <Link href="/shop" className="btn btn-primary">
-          Zur Kollektion
+        <Link href="/shop" className="btn btn-outline">
+          Armbänder ansehen
         </Link>
       </div>
     );
@@ -39,22 +39,25 @@ export function CartView() {
         <ul className="cart-table">
           {lines.map((line) => (
             <li key={line.key} className="cart-line cart-line-lg">
-              <Link href={`/produkt/${line.slug}`} className="cart-line-img">
-                <ProductImage product={line.product} src={line.product.images[0]} sizes="140px" />
+              <Link href={line.href} className="cart-line-img">
+                <ProductImage src={line.image} alt={line.product.name} sizes="140px" />
               </Link>
               <div className="cart-line-body">
                 <div className="cart-line-top">
                   <div>
-                    <Link href={`/produkt/${line.slug}`} className="cart-line-name">
+                    <Link href={line.href} className="cart-line-name">
                       {line.product.name}
                     </Link>
-                    <p className="muted small">Größe {line.size} · {formatPrice(line.product.price)} / Stück</p>
+                    <p className="muted">
+                      {line.variantInfo ? `${line.variantInfo.name} · ` : ""}
+                      {formatPrice(line.product.price)} / Stück
+                    </p>
                   </div>
                   <strong>{formatPrice(line.lineTotal)}</strong>
                 </div>
                 <div className="cart-line-actions">
-                  <QuantityStepper value={line.quantity} onChange={(q) => setQuantity(line.slug, line.size, q)} />
-                  <button className="link-btn small" onClick={() => removeFromCart(line.slug, line.size)}>
+                  <QuantityStepper value={line.quantity} onChange={(q) => setQuantity(line.slug, line.variant, q)} />
+                  <button className="link-btn" onClick={() => removeFromCart(line.slug, line.variant)}>
                     Entfernen
                   </button>
                 </div>
@@ -84,7 +87,7 @@ export function CartView() {
           </p>
           {error && <p className="form-error">{error}</p>}
           <button className="btn btn-primary btn-block" onClick={checkout} disabled={loading}>
-            <LockIcon size={16} /> {loading ? "Einen Moment …" : "Sicher zur Kasse"}
+            {loading ? "Einen Moment …" : "Zur Kasse"}
           </button>
           <PaymentBadges className="center" />
           <ul className="cart-assurance">

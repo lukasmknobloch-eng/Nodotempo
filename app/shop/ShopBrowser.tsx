@@ -2,25 +2,28 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
-import type { CatalogProduct } from "@/lib/catalog";
-import { ProductCard } from "@/components/ProductCard";
+import type { Card } from "@/lib/shop";
+import { products } from "@/lib/products";
 import { matchesQuery } from "@/lib/search";
-import { CloseIcon } from "@/components/Icons";
+import { useShop } from "@/components/ShopProvider";
+import { ProductCard } from "@/components/ProductCard";
 
 const sorts = {
-  empfohlen: { label: "Empfohlen", fn: (a: CatalogProduct, b: CatalogProduct) => a.rank - b.rank },
-  neu: { label: "Neuheiten", fn: (a: CatalogProduct, b: CatalogProduct) => b.added - a.added },
-  "preis-auf": { label: "Preis aufsteigend", fn: (a: CatalogProduct, b: CatalogProduct) => a.price - b.price },
-  "preis-ab": { label: "Preis absteigend", fn: (a: CatalogProduct, b: CatalogProduct) => b.price - a.price },
+  empfohlen: { label: "Empfohlen", fn: (_a: Card, _b: Card) => 0 },
+  neu: { label: "Neuheiten", fn: (a: Card, b: Card) => (b.variant?.added ?? 0) - (a.variant?.added ?? 0) },
+  "preis-auf": { label: "Preis aufsteigend", fn: (a: Card, b: Card) => a.product.price - b.product.price },
+  "preis-ab": { label: "Preis absteigend", fn: (a: Card, b: Card) => b.product.price - a.product.price },
 } as const;
 
 type SortKey = keyof typeof sorts;
 
-export function ShopBrowser({ catalog }: { catalog: CatalogProduct[] }) {
+export function ShopBrowser() {
+  const { cards } = useShop();
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
+  const model = params.get("modell");
   const sortParam = params.get("sortierung");
   const sort: SortKey = sortParam && sortParam in sorts ? (sortParam as SortKey) : "empfohlen";
   const query = params.get("q") ?? "";
@@ -35,26 +38,32 @@ export function ShopBrowser({ catalog }: { catalog: CatalogProduct[] }) {
 
   const visible = useMemo(
     () =>
-      catalog
-        .filter((p) => !query || matchesQuery(query, p))
+      cards
+        .filter((c) => !model || c.product.slug === model)
+        .filter((c) => !query || matchesQuery(query, c))
         .sort(sorts[sort].fn),
-    [catalog, query, sort],
+    [cards, model, query, sort],
   );
 
   return (
     <>
-      <header className="page-head">
-        <p className="eyebrow">Shop</p>
-        <h1 className="h1">Alle Armbänder</h1>
-        <p className="page-lead">
-          Handgeknüpfte Stoffarmbänder in {catalog.length} Farben – stufenlos verstellbar und entworfen, um neben der Uhr
-          zu bestehen. Oder ganz für sich.
-        </p>
-      </header>
-
       <div className="toolbar">
-        <span className="muted small">{visible.length} Armbänder</span>
+        <div className="toolbar-filters" role="group" aria-label="Modell filtern">
+          <button className={`text-btn ${!model ? "is-active" : ""}`} onClick={() => update("modell", null)}>
+            Alle
+          </button>
+          {products.map((p) => (
+            <button
+              key={p.slug}
+              className={`text-btn ${model === p.slug ? "is-active" : ""}`}
+              onClick={() => update("modell", p.slug)}
+            >
+              {p.name}
+            </button>
+          ))}
+        </div>
         <div className="toolbar-right">
+          <span className="muted">{visible.length} Artikel</span>
           <label className="select">
             <span className="sr-only">Sortieren nach</span>
             <select value={sort} onChange={(e) => update("sortierung", e.target.value === "empfohlen" ? null : e.target.value)}>
@@ -70,24 +79,24 @@ export function ShopBrowser({ catalog }: { catalog: CatalogProduct[] }) {
 
       {query && (
         <div className="active-query">
-          Suchergebnisse für „{query}“
-          <button className="chip chip-sm" onClick={() => update("q", null)} aria-label="Suche zurücksetzen">
-            <CloseIcon size={14} /> zurücksetzen
+          Suche: „{query}“{" "}
+          <button className="text-btn" onClick={() => update("q", null)}>
+            zurücksetzen
           </button>
         </div>
       )}
 
       {visible.length === 0 ? (
         <div className="empty">
-          <p className="serif-lg">Keine passenden Armbänder gefunden.</p>
-          <button className="btn btn-ghost" onClick={() => router.replace(pathname)}>
+          <p>Keine passenden Armbänder gefunden.</p>
+          <button className="btn btn-outline" onClick={() => router.replace(pathname)}>
             Filter zurücksetzen
           </button>
         </div>
       ) : (
-        <div className="grid-products grid-products-shop">
-          {visible.map((p, i) => (
-            <ProductCard key={p.slug} product={p} preload={i < 4} />
+        <div className="grid-products">
+          {visible.map((c, i) => (
+            <ProductCard key={c.key} card={c} preload={i < 4} />
           ))}
         </div>
       )}

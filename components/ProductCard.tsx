@@ -1,25 +1,24 @@
 import Link from "next/link";
-import type { CatalogProduct } from "@/lib/catalog";
+import type { Card } from "@/lib/shop";
 import { formatPrice } from "@/lib/format";
 import { ProductImage } from "./ProductImage";
-import { WishlistButton } from "./WishlistButton";
 
-export function ProductCard({ product, preload }: { product: CatalogProduct; preload?: boolean }) {
-  const [first, second] = product.images;
+export function ProductCard({ card, preload }: { card: Card; preload?: boolean }) {
+  const [first, second] = card.images;
+  const { product, variant } = card;
+  const alt = variant ? `${product.name} in ${variant.name}` : product.name;
   return (
-    <Link href={`/produkt/${product.slug}`} className="card">
+    <Link href={card.href} className="card">
       <div className="card-media">
-        <ProductImage product={product} src={first} preload={preload} />
-        {second && <ProductImage product={product} src={second} className="card-media-alt" />}
-        {product.badge && !product.soldOut && <span className="tag">{product.badge}</span>}
-        {product.soldOut && <span className="tag tag-muted">Ausverkauft</span>}
-        <WishlistButton slug={product.slug} className="card-wish" />
-        <span className="card-cta">Ansehen</span>
+        <ProductImage src={first} alt={alt} preload={preload} placeholder={product.comingSoon ? "Bald verfügbar" : undefined} />
+        {second && <ProductImage src={second} alt={alt} className="card-media-alt" />}
+        {variant?.soldOut && <span className="tag">Ausverkauft</span>}
+        {product.comingSoon && first && <span className="tag">Bald verfügbar</span>}
       </div>
       <div className="card-body">
         <div>
-          <h3 className="card-title">{product.name}</h3>
-          <p className="card-sub">{product.shortDescription}</p>
+          <h3 className="card-title">{card.title}</h3>
+          <p className="card-sub">{card.subtitle}</p>
         </div>
         <p className="card-price">
           {product.compareAtPrice && <s>{formatPrice(product.compareAtPrice)}</s>}

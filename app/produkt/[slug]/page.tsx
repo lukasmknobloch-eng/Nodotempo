@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getCatalog, getCatalogProduct } from "@/lib/catalog";
-import { productInfo, products } from "@/lib/products";
+import { products, productInfo } from "@/lib/products";
+import { toCards } from "@/lib/shop";
 import { site } from "@/lib/site";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductDetail } from "./ProductDetail";
@@ -19,10 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = getCatalogProduct(slug);
   if (!product) return {};
+  const image = product.variants[0]?.images[0] ?? product.images[0];
   return {
     title: product.name,
-    description: `${product.shortDescription} ${product.description}`.slice(0, 160),
-    openGraph: { title: product.name, images: product.images.slice(0, 1) },
+    description: product.description.slice(0, 160),
+    openGraph: { title: product.name, images: image ? [image] : [] },
   };
 }
 
@@ -31,52 +33,46 @@ export default async function ProductPage({ params }: Props) {
   const product = getCatalogProduct(slug);
   if (!product) notFound();
 
-  // Die nächsten Farben in der Shop-Reihenfolge
-  const catalog = getCatalog();
-  const index = catalog.findIndex((p) => p.slug === product.slug);
-  const related = [1, 2, 3, 4].map((i) => catalog[(index + i) % catalog.length]);
+  const related = toCards(getCatalog())
+    .filter((c) => c.product.slug !== product.slug || c.variant)
+    .slice(0, 8);
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "ProductGroup",
     name: product.name,
     description: product.description,
     brand: { "@type": "Brand", name: site.name },
     material: productInfo.material,
-    color: product.color,
-    image: product.images.map((src) => new URL(src, site.url).toString()),
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "EUR",
-      price: (product.price / 100).toFixed(2),
-      availability: product.soldOut ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
-      url: new URL(`/produkt/${product.slug}`, site.url).toString(),
-    },
+    variesBy: ["https://schema.org/color"],
+    hasVariant: product.variants.map((v) => ({
+      "@type": "Product",
+      name: `${product.name} ${v.name}`,
+      color: v.name,
+      image: v.images.map((src) => new URL(src, site.url).toString()),
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "EUR",
+        price: (product.price / 100).toFixed(2),
+        availability: v.soldOut || product.comingSoon ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+        url: new URL(`/produkt/${product.slug}?farbe=${v.id}`, site.url).toString(),
+      },
+    })),
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <div className="container page page-tight">
-        <nav className="breadcrumbs" aria-label="Brotkrümelnavigation">
-          <Link href="/">Start</Link>
-          <span>/</span>
-          <Link href="/shop">Shop</Link>
-          <span>/</span>
-          <span aria-current="page">{product.name}</span>
-        </nav>
-        <ProductDetail product={product} />
+      <div className="page-pdp">
+        <Suspense fallback={<ProductDetail product={product} />}>
+          <ProductDetail product={product} syncUrl />
+        </Suspense>
       </div>
-      <section className="section container">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Kombinieren</p>
-            <h2 className="h2">Weitere Farben</h2>
-          </div>
-        </div>
+      <section className="section-grid">
+        <h2 className="section-title">Das könnte dir auch gefallen</h2>
         <div className="grid-products">
-          {related.map((p) => (
-            <ProductCard key={p.slug} product={p} />
+          {related.slice(0, 4).map((c) => (
+            <ProductCard key={c.key} card={c} />
           ))}
         </div>
       </section>

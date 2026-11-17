@@ -4,7 +4,7 @@ import { getStripe } from "@/lib/stripe";
 import { getCatalogProduct } from "@/lib/catalog";
 import { site } from "@/lib/site";
 
-type Item = { slug: string; size: string; quantity: number };
+type Item = { slug: string; variant: string; quantity: number };
 
 export async function POST(req: Request) {
   const stripe = getStripe();
@@ -35,8 +35,9 @@ export async function POST(req: Request) {
   let subtotal = 0;
   for (const item of items) {
     const product = getCatalogProduct(String(item.slug));
+    const variant = product?.variants.find((v) => v.id === item.variant);
     const quantity = Math.floor(Number(item.quantity));
-    if (!product || product.soldOut || !product.sizes.includes(item.size) || !(quantity >= 1 && quantity <= 10)) {
+    if (!product || product.comingSoon || !variant || variant.soldOut || !(quantity >= 1 && quantity <= 10)) {
       return NextResponse.json(
         { error: "Ein Artikel in deinem Warenkorb ist nicht mehr verfügbar. Bitte aktualisiere den Warenkorb." },
         { status: 400 },
@@ -50,10 +51,10 @@ export async function POST(req: Request) {
         unit_amount: product.price,
         tax_behavior: "inclusive",
         product_data: {
-          name: `${product.name} – Größe ${item.size}`,
-          description: product.shortDescription,
-          images: canShowImages ? product.images.slice(0, 1).map((src) => new URL(src, origin).toString()) : undefined,
-          metadata: { slug: product.slug, size: item.size },
+          name: `${product.name} – ${variant.name}`,
+          description: `${product.subtitle}, Paracord, stufenlos verstellbar`,
+          images: canShowImages ? variant.images.slice(0, 1).map((src) => new URL(src, origin).toString()) : undefined,
+          metadata: { slug: product.slug, variant: variant.id },
         },
       },
     });
@@ -111,7 +112,7 @@ export async function POST(req: Request) {
         },
       },
       metadata: {
-        cart: JSON.stringify(items.map((i) => [i.slug, i.size, i.quantity])).slice(0, 500),
+        cart: JSON.stringify(items.map((i) => [i.slug, i.variant, i.quantity])).slice(0, 500),
       },
       success_url: `${origin}/bestellung/erfolg?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/warenkorb`,

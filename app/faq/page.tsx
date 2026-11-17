@@ -81,7 +81,7 @@ const faqs: { group: string; items: { q: string; a: React.ReactNode }[] }[] = [
       },
       {
         q: "Kann ich mehrere Armbänder zusammen tragen?",
-        a: "Unbedingt. Zwei oder drei Farben übereinander sehen besonders gut aus – zum Beispiel Notte mit Rosso oder Kaki mit Sole.",
+        a: "Unbedingt. Zwei oder drei Farben übereinander sehen besonders gut aus – zum Beispiel Blau / Weiß mit Gelb oder Sand mit Bordeaux / Grau.",
       },
     ],
   },

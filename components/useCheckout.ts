@@ -16,7 +16,7 @@ export function useCheckout() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          items: lines.map((l) => ({ slug: l.slug, size: l.size, quantity: l.quantity })),
+          items: lines.map((l) => ({ slug: l.slug, variant: l.variant, quantity: l.quantity })),
         }),
       });
       const data = (await res.json()) as { url?: string; error?: string };

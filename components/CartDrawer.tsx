@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useShop } from "./ShopProvider";
-import { CloseIcon, LockIcon } from "./Icons";
+import { CloseIcon } from "./Icons";
 import { ProductImage } from "./ProductImage";
 import { QuantityStepper } from "./QuantityStepper";
 import { FreeShippingBar } from "./FreeShippingBar";
@@ -23,25 +23,24 @@ export function CartDrawer() {
     return () => window.removeEventListener("keydown", onKey);
   }, [cartOpen, setCartOpen]);
 
+  const close = () => setCartOpen(false);
+
   return (
     <div className={`drawer ${cartOpen ? "is-open" : ""}`} aria-hidden={!cartOpen}>
-      <div className="drawer-backdrop" onClick={() => setCartOpen(false)} />
+      <div className="drawer-backdrop" onClick={close} />
       <aside className="drawer-panel" role="dialog" aria-label="Warenkorb" aria-modal="true">
         <div className="drawer-head">
-          <h2>
-            Warenkorb <span className="muted">({count})</span>
-          </h2>
-          <button className="icon-btn" aria-label="Warenkorb schließen" onClick={() => setCartOpen(false)}>
-            <CloseIcon />
+          <h2>Warenkorb ({count})</h2>
+          <button className="header-link" aria-label="Warenkorb schließen" onClick={close}>
+            <CloseIcon size={18} />
           </button>
         </div>
 
         {lines.length === 0 ? (
           <div className="drawer-empty">
-            <p className="serif-lg">Dein Warenkorb ist leer.</p>
-            <p className="muted">Entdecke Armbänder, die neben der Zeit bestehen.</p>
-            <Link href="/shop" className="btn btn-primary" onClick={() => setCartOpen(false)}>
-              Zur Kollektion
+            <p>Dein Warenkorb ist leer.</p>
+            <Link href="/shop" className="btn btn-outline" onClick={close}>
+              Armbänder ansehen
             </Link>
           </div>
         ) : (
@@ -50,20 +49,20 @@ export function CartDrawer() {
             <ul className="drawer-lines">
               {lines.map((line) => (
                 <li key={line.key} className="cart-line">
-                  <Link href={`/produkt/${line.slug}`} className="cart-line-img" onClick={() => setCartOpen(false)}>
-                    <ProductImage product={line.product} src={line.product.images[0]} sizes="96px" />
+                  <Link href={line.href} className="cart-line-img" onClick={close}>
+                    <ProductImage src={line.image} alt={line.product.name} sizes="96px" />
                   </Link>
                   <div className="cart-line-body">
                     <div className="cart-line-top">
-                      <Link href={`/produkt/${line.slug}`} onClick={() => setCartOpen(false)} className="cart-line-name">
+                      <Link href={line.href} onClick={close} className="cart-line-name">
                         {line.product.name}
                       </Link>
                       <span>{formatPrice(line.lineTotal)}</span>
                     </div>
-                    <p className="muted small">Größe {line.size}</p>
+                    {line.variantInfo && <p className="muted">{line.variantInfo.name}</p>}
                     <div className="cart-line-actions">
-                      <QuantityStepper small value={line.quantity} onChange={(q) => setQuantity(line.slug, line.size, q)} />
-                      <button className="link-btn small" onClick={() => removeFromCart(line.slug, line.size)}>
+                      <QuantityStepper small value={line.quantity} onChange={(q) => setQuantity(line.slug, line.variant, q)} />
+                      <button className="link-btn" onClick={() => removeFromCart(line.slug, line.variant)}>
                         Entfernen
                       </button>
                     </div>
@@ -74,14 +73,14 @@ export function CartDrawer() {
             <div className="drawer-foot">
               <div className="summary-row">
                 <span>Zwischensumme</span>
-                <strong>{formatPrice(subtotal)}</strong>
+                <span>{formatPrice(subtotal)}</span>
               </div>
               <p className="muted small">{site.taxNote}. Versand und Rabattcodes im nächsten Schritt.</p>
               {error && <p className="form-error">{error}</p>}
               <button className="btn btn-primary btn-block" onClick={checkout} disabled={loading}>
-                <LockIcon size={16} /> {loading ? "Einen Moment …" : "Sicher zur Kasse"}
+                {loading ? "Einen Moment …" : "Zur Kasse"}
               </button>
-              <Link href="/warenkorb" className="btn btn-ghost btn-block" onClick={() => setCartOpen(false)}>
+              <Link href="/warenkorb" className="btn btn-outline btn-block" onClick={close}>
                 Warenkorb ansehen
               </Link>
               <PaymentBadges className="center" />

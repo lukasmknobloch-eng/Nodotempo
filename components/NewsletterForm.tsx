@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
-export function NewsletterForm({ dark }: { dark?: boolean }) {
+export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
 
@@ -22,24 +23,23 @@ export function NewsletterForm({ dark }: { dark?: boolean }) {
   }
 
   return (
-    <form className={`newsletter ${dark ? "newsletter-dark" : ""}`} onSubmit={submit}>
+    <form className="newsletter" onSubmit={submit}>
       <div className="newsletter-row">
         <input
           type="email"
           required
-          placeholder="Deine E-Mail-Adresse"
+          placeholder="Deine E-Mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           aria-label="E-Mail-Adresse"
         />
-        <button className="btn btn-primary" disabled={state === "loading"}>
-          Anmelden
+        <button className="text-btn" disabled={state === "loading"}>
+          Abonnieren
         </button>
       </div>
       {state === "error" && <p className="form-error">Das hat leider nicht geklappt. Bitte versuche es erneut.</p>}
-      <p className="small muted">
-        Neuheiten, limitierte Auflagen und exklusive Vorabzugänge. Abmeldung jederzeit möglich. Hinweise in der{" "}
-        <a href="/datenschutz">Datenschutzerklärung</a>.
+      <p className="muted small">
+        Abmeldung jederzeit möglich. Hinweise in der <Link href="/datenschutz">Datenschutzerklärung</Link>.
       </p>
     </form>
   );
