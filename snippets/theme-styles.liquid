@@ -17,9 +17,9 @@
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
   }
   :root {
-    --bg: {{ settings.color_background }};
-    --ink: {{ settings.color_text }};
-    --accent: {{ settings.color_accent }};
-    --img-bg: {{ settings.color_image_background }};
+    --bg: {{ settings.color_background | default: '#faf8f4' }};
+    --ink: {{ settings.color_text | default: '#14291f' }};
+    --accent: {{ settings.color_accent | default: '#a8865a' }};
+    --img-bg: {{ settings.color_image_background | default: '#dedad9' }};
   }
 </style>

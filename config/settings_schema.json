@@ -79,10 +79,11 @@
         "info": "Optional, ersetzt das mitgelieferte Logo-Zeichen. Erscheint auf der Passwortseite und in der Markenzeile. Die Kopfzeile zeigt immer nur den Schriftzug."
       },
       {
-        "type": "url",
+        "type": "text",
         "id": "instagram_url",
         "label": "Instagram",
-        "default": "https://instagram.com/nodo.tempo"
+        "default": "https://instagram.com/nodo.tempo",
+        "info": "Vollständige Adresse, z. B. https://instagram.com/nodo.tempo"
       },
       {
         "type": "text",
