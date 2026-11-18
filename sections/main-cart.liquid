@@ -1,6 +1,11 @@
 <section class="page container">
   <h1 class="h1 page-head">Warenkorb</h1>
-  {%- if cart.item_count == 0 -%}
+  {%- if settings.preview_mode -%}
+    <div class="empty empty-page">
+      <p>{{ settings.preview_note | default: 'Bestellungen sind in Kürze möglich.' }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline">Armbänder ansehen</a>
+    </div>
+  {%- elsif cart.item_count == 0 -%}
     <div class="empty empty-page">
       <p>Dein Warenkorb ist leer.</p>
       <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline">Armbänder ansehen</a>

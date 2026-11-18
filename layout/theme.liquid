@@ -37,7 +37,7 @@
     </main>
 
     {% sections 'footer-group' %}
-    {% render 'cart-drawer' %}
+    {%- unless settings.preview_mode -%}{% render 'cart-drawer' %}{%- endunless -%}
     {% render 'menu-drawer' %}
   </body>
 </html>

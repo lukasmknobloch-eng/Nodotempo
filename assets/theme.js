@@ -147,8 +147,10 @@
       $("[data-variant-color]", product).textContent = sw.dataset.variantColor ? `· ${sw.dataset.variantColor}` : "";
       $("[data-price]", product).innerHTML = (sw.dataset.compare ? `<s>${sw.dataset.compare}</s>` : "") + sw.dataset.price;
       const available = sw.dataset.available === "true";
-      addBtn.disabled = !available;
-      addBtn.textContent = available ? "In den Warenkorb" : "Ausverkauft";
+      if (addBtn) {
+        addBtn.disabled = !available;
+        addBtn.textContent = available ? "In den Warenkorb" : "Ausverkauft";
+      }
       showVariantMedia(sw.dataset.variantName);
       if (updateUrl) {
         const url = new URL(window.location.href);

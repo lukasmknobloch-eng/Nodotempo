@@ -8,6 +8,33 @@
     "theme_support_url": "https://github.com/lukasmknobloch-eng/Nodotempo"
   },
   {
+    "name": "Vorschau-Modus",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Solange der Vorschau-Modus an ist, kann niemand bestellen: Statt „In den Warenkorb“ steht ein Hinweis, Warenkorb und Kasse sind ausgeblendet. Zum Start einfach ausschalten."
+      },
+      {
+        "type": "checkbox",
+        "id": "preview_mode",
+        "label": "Vorschau-Modus (keine Bestellungen)",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "preview_button",
+        "label": "Text auf dem Button",
+        "default": "Bald erhältlich"
+      },
+      {
+        "type": "text",
+        "id": "preview_note",
+        "label": "Hinweis darunter",
+        "default": "Nodotempo startet in Kürze. Trag dich ein, und wir sagen dir Bescheid, sobald du bestellen kannst."
+      }
+    ]
+  },
+  {
     "name": "Farben",
     "settings": [
       {

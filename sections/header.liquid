@@ -15,10 +15,12 @@
       {%- if shop.customer_accounts_enabled -%}
         <a href="{{ routes.account_url }}" class="header-link hide-sm">Konto</a>
       {%- endif -%}
+      {%- unless settings.preview_mode -%}
       <a href="{{ routes.cart_url }}" class="header-link" data-cart-open>
         <span class="show-sm-inline">{% render 'icon', name: 'bag' %}</span><span class="hide-sm">Warenkorb</span>
         (<span data-cart-count>{{ cart.item_count }}</span>)
       </a>
+      {%- endunless -%}
     </nav>
   </div>
 </header>

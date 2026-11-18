@@ -81,20 +81,28 @@
         <p class="pdp-fit">{{ settings.fit_note }} <a href="/pages/tragen" class="underline">So funktioniert’s</a></p>
       {%- endif -%}
 
-      {%- form 'product', product, id: 'product-form', class: 'pdp-form' -%}
-        <input type="hidden" name="id" value="{{ current.id }}" data-variant-input>
-        <div class="pdp-buy">
-          <div class="stepper" data-stepper>
-            <button type="button" data-step="-1" aria-label="Menge verringern">{% render 'icon', name: 'minus' %}</button>
-            <input type="number" name="quantity" value="1" min="1" max="10" aria-label="Menge">
-            <button type="button" data-step="1" aria-label="Menge erhöhen">{% render 'icon', name: 'plus' %}</button>
-          </div>
-          <button type="submit" class="btn btn-primary btn-grow" data-add-button {% unless current.available %}disabled{% endunless %}>
-            {%- if current.available -%}In den Warenkorb{%- else -%}Ausverkauft{%- endif -%}
-          </button>
+      {%- if settings.preview_mode -%}
+        <div class="pdp-soon">
+          <button type="button" class="btn btn-primary btn-block" disabled>{{ settings.preview_button | default: 'Bald erhältlich' }}</button>
+          {%- if settings.preview_note != blank -%}<p class="pdp-soon-text">{{ settings.preview_note }}</p>{%- endif -%}
+          {% render 'newsletter-form', id: 'product' %}
         </div>
-        <p class="form-error" data-form-error hidden></p>
-      {%- endform -%}
+      {%- else -%}
+        {%- form 'product', product, id: 'product-form', class: 'pdp-form' -%}
+          <input type="hidden" name="id" value="{{ current.id }}" data-variant-input>
+          <div class="pdp-buy">
+            <div class="stepper" data-stepper>
+              <button type="button" data-step="-1" aria-label="Menge verringern">{% render 'icon', name: 'minus' %}</button>
+              <input type="number" name="quantity" value="1" min="1" max="10" aria-label="Menge">
+              <button type="button" data-step="1" aria-label="Menge erhöhen">{% render 'icon', name: 'plus' %}</button>
+            </div>
+            <button type="submit" class="btn btn-primary btn-grow" data-add-button {% unless current.available %}disabled{% endunless %}>
+              {%- if current.available -%}In den Warenkorb{%- else -%}Ausverkauft{%- endif -%}
+            </button>
+          </div>
+          <p class="form-error" data-form-error hidden></p>
+        {%- endform -%}
+      {%- endif -%}
 
       {%- if product.description != blank -%}
         <div class="pdp-description rte">{{ product.description }}</div>
