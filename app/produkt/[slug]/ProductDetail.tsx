@@ -115,7 +115,7 @@ function Detail({
         {product.variants.length > 0 && (
           <div className="pdp-option">
             <p className="pdp-option-label">
-              Farbe: <span>{variant?.name}</span>
+              Farbe: {variant?.name} <span>· {variant?.color}</span>
             </p>
             <div className="swatches" role="radiogroup" aria-label="Farbe wählen">
               {product.variants.map((v) => (
@@ -123,8 +123,8 @@ function Detail({
                   key={v.id}
                   role="radio"
                   aria-checked={v.id === variantId}
-                  aria-label={v.name}
-                  title={v.name}
+                  aria-label={`${v.name} (${v.color})`}
+                  title={`${v.name} · ${v.color}`}
                   className={`swatch ${v.id === variantId ? "is-active" : ""} ${v.soldOut ? "is-soldout" : ""}`}
                   onClick={() => chooseVariant(v.id)}
                 >

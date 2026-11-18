@@ -9,14 +9,17 @@
 //  Bild 1 ist das Hauptbild, Bild 2 erscheint beim Darüberfahren in der
 //  Übersicht. Erlaubt: .jpg .jpeg .png .webp .avif – sortiert nach Dateiname.
 //
-//  NEUE FARBE: eine Zeile in "variants" ergänzen und den Bildordner anlegen.
+//  NEUE FARBE: eine Zeile in "variants" ergänzen (italienischer Name + deutsche
+//  Farbbeschreibung) und den Bildordner anlegen.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type Variant = {
   /** Teil der Adresse und Name des Bildordners, z. B. "gelb" */
   id: string;
-  /** Farbname, wie er im Shop erscheint */
+  /** Farbname (italienisch), wie er im Shop erscheint */
   name: string;
+  /** Farbbeschreibung auf Deutsch (für Suche und Produktseite) */
+  color: string;
   /** Material laut Etikett – bitte je Farbe eintragen */
   fiber?: "100 % Polyamid (Nylon)" | "100 % Polyester";
   soldOut?: boolean;
@@ -60,14 +63,17 @@ export const products: Product[] = [
       "Kratzt nicht am Uhrengehäuse",
     ],
     variants: [
-      { id: "blau-weiss", name: "Blau / Weiß", added: 8 },
-      { id: "gelb", name: "Gelb", added: 7 },
-      { id: "braun-beige", name: "Braun / Beige", added: 6 },
-      { id: "beere-rosa", name: "Beere / Rosa", added: 5 },
-      { id: "blau-sand", name: "Blau / Sand", added: 4 },
-      { id: "hellgruen", name: "Hellgrün", added: 3 },
-      { id: "bordeaux-grau", name: "Bordeaux / Grau", added: 2 },
-      { id: "sand", name: "Sand", added: 1 },
+      { id: "blau-weiss", name: "Cielo", color: "Blau / Weiß", added: 8 },
+      { id: "gelb", name: "Sole", color: "Gelb", added: 7 },
+      { id: "braun-beige", name: "Moka", color: "Braun / Beige", added: 6 },
+      { id: "beere-rosa", name: "Vino", color: "Beere / Rosa", added: 5 },
+      { id: "blau-sand", name: "Riva", color: "Blau / Sand", added: 4 },
+      { id: "hellgruen", name: "Salvia", color: "Hellgrün", added: 3 },
+      { id: "bordeaux-grau", name: "Granato", color: "Bordeaux / Grau", added: 2 },
+      { id: "sand", name: "Sabbia", color: "Sand", added: 1 },
+      { id: "camo-braun", name: "Terra", color: "Camo Braun", added: 11 },
+      { id: "camo-gruen", name: "Bosco", color: "Camo Grün", added: 10 },
+      { id: "rosa-creme", name: "Rosa", color: "Rosa / Creme", added: 9 },
     ],
   },
   {

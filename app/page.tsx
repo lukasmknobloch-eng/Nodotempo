@@ -62,7 +62,7 @@ export default function HomePage() {
 
       <section className="section-grid">
         <div className="grid-products">
-          {no2.map((c, i) => (
+          {no2.slice(0, 8).map((c, i) => (
             <ProductCard key={c.key} card={c} preload={i < 4} />
           ))}
         </div>

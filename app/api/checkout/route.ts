@@ -51,7 +51,7 @@ export async function POST(req: Request) {
         unit_amount: product.price,
         tax_behavior: "inclusive",
         product_data: {
-          name: `${product.name} – ${variant.name}`,
+          name: `${product.name} – ${variant.name} (${variant.color})`,
           description: `${product.subtitle}, Paracord, stufenlos verstellbar`,
           images: canShowImages ? variant.images.slice(0, 1).map((src) => new URL(src, origin).toString()) : undefined,
           metadata: { slug: product.slug, variant: variant.id },
