@@ -42,7 +42,7 @@ export default function AboutPage() {
           </p>
           <h2>Das Armband</h2>
           <p>
-            Fest geflochtenes Paracord aus Nylon oder Polyester, von Hand geknüpft. Zwei Schiebeknoten machen es
+            Die Nato-Series: fest geflochtenes Fallschirmseil aus Nylon, von Hand geknüpft. Zwei Schiebeknoten machen es
             stufenlos verstellbar. Kein Verschluss, kein Metall, nur der Knoten, der uns den Namen gab.
           </p>
           <Link href="/shop" className="btn btn-outline">

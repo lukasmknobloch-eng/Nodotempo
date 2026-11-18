@@ -98,6 +98,7 @@ function Detail({
       </div>
 
       <div className="pdp-info">
+        <p className="pdp-series">{productInfo.series}</p>
         <h1 className="pdp-title">{product.name}</h1>
         <p className="pdp-subtitle">{product.subtitle}</p>
         <p className="pdp-price">
@@ -195,7 +196,7 @@ function Detail({
             </summary>
             <p>
               {productInfo.material}
-              {variant?.fiber ? `, ${variant.fiber}` : ", Polyamid (Nylon) oder Polyester je nach Farbe"}.
+              .
             </p>
             <p>{productInfo.care}</p>
           </details>

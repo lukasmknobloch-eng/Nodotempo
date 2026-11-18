@@ -5,7 +5,7 @@ import { PaymentBadges } from "./PaymentBadges";
 import { site } from "@/lib/site";
 
 const links = [
-  { href: "/shop", label: "Alle Armbänder" },
+  { href: "/shop", label: "The Nato-Series" },
   { href: "/tragen", label: "Tragen & Größe" },
   { href: "/versand-rueckgabe", label: "Versand & Rückgabe" },
   { href: "/faq", label: "Häufige Fragen" },

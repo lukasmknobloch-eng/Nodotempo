@@ -5,7 +5,7 @@ export const site = {
   name: "Nodotempo",
   claim: "Armbänder, getragen neben der Zeit.",
   description:
-    "Nodotempo – handgeknüpfte Paracord-Armbänder. Entworfen, um neben der Uhr getragen zu werden – und ohne sie zu bestehen.",
+    "Nodotempo – The Nato-Series: handgeknüpfte Armbänder aus Fallschirmseil. Entworfen, um neben der Uhr getragen zu werden – und ohne sie zu bestehen.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   email: "hallo@nodotempo.de",
   instagram: "https://instagram.com/nodo.tempo",
@@ -40,7 +40,7 @@ export const site = {
 } as const;
 
 export const navigation = [
-  { href: "/shop", label: "Alle Armbänder" },
+  { href: "/shop", label: "The Nato-Series" },
   { href: "/produkt/nodo-no-2", label: "Nodo No. 2" },
   { href: "/produkt/nodo-no-1", label: "Nodo No. 1" },
   { href: "/tragen", label: "Tragen & Größe" },

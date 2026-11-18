@@ -21,7 +21,7 @@ export type Variant = {
   /** Farbbeschreibung auf Deutsch (für Suche und Produktseite) */
   color: string;
   /** Material laut Etikett – bitte je Farbe eintragen */
-  fiber?: "100 % Polyamid (Nylon)" | "100 % Polyester";
+  fiber?: string;
   soldOut?: boolean;
   /** Höher = neuer (für Sortierung "Neuheiten") */
   added?: number;
@@ -42,7 +42,9 @@ export type Product = {
 };
 
 export const productInfo = {
-  material: "Paracord (geflochtene Kordel)",
+  /** Name der Serie, zu der alle Armbänder gehören */
+  series: "The Nato-Series",
+  material: "Fallschirmseil aus 100 % Nylon",
   care: "Bei Bedarf mit lauwarmem Wasser und etwas milder Seife von Hand waschen und an der Luft trocknen lassen. Nicht in den Trockner geben.",
 };
 
@@ -55,7 +57,7 @@ export const products: Product[] = [
     subtitle: "Das Original",
     price: 1690,
     description:
-      "Geflochtenes Paracord, von Hand zu einem Armband geknüpft. Zwei Schiebeknoten machen es stufenlos verstellbar: an den Enden ziehen, bis es sitzt. Leicht genug für jeden Tag, präsent genug, um neben einer Uhr zu bestehen.",
+      "Geflochtenes Fallschirmseil aus Nylon, von Hand zu einem Armband geknüpft. Zwei Schiebeknoten machen es stufenlos verstellbar: an den Enden ziehen, bis es sitzt. Leicht genug für jeden Tag, präsent genug, um neben einer Uhr zu bestehen.",
     details: [
       "Stufenlos verstellbar über zwei Schiebeknoten",
       "Passt für nahezu jedes Handgelenk",
@@ -82,9 +84,9 @@ export const products: Product[] = [
     subtitle: "Die feine Version",
     price: 1390,
     description:
-      "Die schmalere Schwester von Nodo No. 2: dünneres Paracord, derselbe Knoten. Zurückhaltend allein getragen, ideal zum Kombinieren mit mehreren Farben.",
+      "Die schmalere Schwester von Nodo No. 2: feineres Fallschirmseil, derselbe Knoten. Zurückhaltend allein getragen, ideal zum Kombinieren mit mehreren Farben.",
     details: [
-      "Schmaleres Paracord",
+      "Feineres Fallschirmseil aus Nylon",
       "Stufenlos verstellbar über zwei Schiebeknoten",
       "Von Hand geknüpft",
       "Ideal zum Kombinieren",

@@ -68,8 +68,7 @@ const BACK = `
     </section>
     <section>
       <h2>Material</h2>
-      <p>Paracord, geflochtene Kordel:</p>
-      <p class="checks"><span class="box"></span>100 % Polyamid (Nylon) <span class="box gap"></span>100 % Polyester</p>
+      <p>The Nato-Series: Fallschirmseil aus 100 % Nylon, von Hand geknüpft.</p>
     </section>
     <section>
       <h2>Fragen, Umtausch, Rückgabe</h2>

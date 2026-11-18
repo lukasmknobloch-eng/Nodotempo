@@ -47,6 +47,10 @@ export function ShopBrowser() {
 
   return (
     <>
+      <header className="series-head">
+        <h1>The Nato-Series</h1>
+        <p>Handgeknüpft aus Fallschirmseil. Zwei Modelle, viele Farben, stufenlos verstellbar.</p>
+      </header>
       <div className="toolbar">
         <div className="toolbar-filters" role="group" aria-label="Modell filtern">
           <button className={`text-btn ${!model ? "is-active" : ""}`} onClick={() => update("modell", null)}>

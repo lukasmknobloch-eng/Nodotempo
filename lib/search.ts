@@ -4,7 +4,7 @@ const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,
 
 /** true, wenn alle Wörter der Suche in Modell oder Farbe vorkommen */
 export function matchesQuery(query: string, card: Card) {
-  const haystack = norm(`${card.title} ${card.subtitle} ${card.variant?.color ?? ""} ${card.product.subtitle} paracord armband`);
+  const haystack = norm(`${card.title} ${card.subtitle} ${card.variant?.color ?? ""} ${card.product.subtitle} paracord fallschirmseil nylon nato series armband`);
   return norm(query)
     .split(/\s+/)
     .filter(Boolean)

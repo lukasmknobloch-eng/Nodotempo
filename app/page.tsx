@@ -52,7 +52,7 @@ export default function HomePage() {
         )}
         <div className="hero-copy">
           <h1>Getragen neben der Zeit</h1>
-          <p>Handgeknüpfte Paracord-Armbänder</p>
+          <p>The Nato-Series · Handgeknüpft aus Fallschirmseil</p>
           <Link href="/shop" className={`btn ${hero ? "btn-outline-light" : "btn-outline"}`}>
             Armbänder ansehen
           </Link>
@@ -87,9 +87,9 @@ export default function HomePage() {
           </div>
         )}
         <div className="banner-copy">
-          <p className="eyebrow">Die feine Version</p>
+          <p className="eyebrow">The Nato-Series · Die feine Version</p>
           <h2>Nodo No. 1</h2>
-          <p>Schmaleres Paracord, derselbe Knoten. Jetzt erhältlich.</p>
+          <p>Feineres Fallschirmseil, derselbe Knoten. Jetzt erhältlich.</p>
           <Link href="/produkt/nodo-no-1" className="btn btn-outline-light">
             Nodo No. 1 ansehen
           </Link>

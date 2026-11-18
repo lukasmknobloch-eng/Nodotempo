@@ -817,6 +817,19 @@ body:has(.hero-photo) .header.is-overlay {
 .page-shop {
   padding: 24px var(--gutter) clamp(56px, 7vw, 96px);
 }
+.series-head {
+  margin: 8px 0 28px;
+}
+.series-head h1 {
+  margin: 0;
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.series-head p {
+  margin-top: 6px;
+  color: var(--ink-soft);
+}
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -912,6 +925,13 @@ body:has(.hero-photo) .header.is-overlay {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+.pdp-series {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
 }
 .pdp-title {
   margin: 0;

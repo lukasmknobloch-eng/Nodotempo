@@ -16,6 +16,15 @@ Ab jetzt übernimmt Shopify jede Änderung, die Claude auf diesem Branch hochlä
 
 Wichtig: Der Alt-Text der Bilder (z. B. `Cielo | Blau / Weiß`) ordnet die Fotos den Farben zu. Bei neuen Fotos immer so benennen.
 
+## 2b. Kollektion „The Nato-Series“ anlegen
+**Produkte → Kollektionen → Kollektion erstellen**
+- Titel: **The Nato-Series**
+- Beschreibung: „Handgeknüpft aus Fallschirmseil. Zwei Modelle, viele Farben, stufenlos verstellbar.“
+- Kollektionstyp: **Automatisiert**, Bedingung: Produkt-Tag ist gleich **Serie: The Nato-Series**
+- Unter „Suchmaschinen-Listing“ die Adresse **the-nato-series** prüfen
+
+Menü und Fußbereich verlinken automatisch auf diese Kollektion, sobald sie existiert.
+
 ## 3. Seiten anlegen
 **Onlineshop → Seiten → Seite hinzufügen**, Inhalt leer lassen, rechts unter **Theme-Vorlage** wählen:
 
