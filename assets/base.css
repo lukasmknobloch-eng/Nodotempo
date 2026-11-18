@@ -1595,6 +1595,14 @@ body.template-index:has(.hero-photo) .header:not(.is-scrolled) {
   .hero-media-split > div + div {
     display: none;
   }
+  .hero-photo {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 5;
+  }
+  .hero-photo .hero-media img {
+    object-position: 45% center;
+  }
   .hero-split {
     height: auto;
     min-height: 0;

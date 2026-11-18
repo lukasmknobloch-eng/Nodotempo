@@ -4,4 +4,6 @@
 {%- endcomment -%}
 {%- if settings.logo_mark != blank -%}
   {{ settings.logo_mark | image_url: width: 600 | image_tag: class: class, alt: shop.name, loading: 'lazy' }}
+{%- else -%}
+  <img src="{{ 'logo-mark.png' | asset_url }}" class="{{ class }}" alt="{{ shop.name | escape }}" width="600" height="777" loading="lazy">
 {%- endif -%}

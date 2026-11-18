@@ -49,7 +49,7 @@
         "type": "image_picker",
         "id": "logo_mark",
         "label": "Logo-Zeichen (N im Quadrat)",
-        "info": "Erscheint auf der Passwortseite und in der Markenzeile. Die Kopfzeile zeigt immer nur den Schriftzug."
+        "info": "Optional, ersetzt das mitgelieferte Logo-Zeichen. Erscheint auf der Passwortseite und in der Markenzeile. Die Kopfzeile zeigt immer nur den Schriftzug."
       },
       {
         "type": "url",

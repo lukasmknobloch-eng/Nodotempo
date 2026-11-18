@@ -1,5 +1,5 @@
 <section class="statement">
-  {%- if settings.logo_mark != blank and section.settings.show_mark -%}
+  {%- if section.settings.show_mark -%}
     {% render 'logo-mark', class: 'statement-mark' %}
   {%- else -%}
     {% render 'logo', class: 'statement-logo' %}
