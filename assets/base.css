@@ -765,6 +765,10 @@ body.template-index:has(.hero-photo) .header:not(.is-scrolled) {
   z-index: 2;
   font-size: 12px;
 }
+.feature-photo .feature-caption {
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
 .feature-product {
   display: flex;
   justify-content: center;

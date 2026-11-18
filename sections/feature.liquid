@@ -13,9 +13,13 @@
   endif
 -%}
 <section class="feature">
-  <div class="feature-media">
+  {%- assign has_photo = false -%}
+  {%- if section.settings.image != blank or section.settings.use_default_image -%}{%- assign has_photo = true -%}{%- endif -%}
+  <div class="feature-media{% if has_photo %} feature-photo{% endif %}">
     {%- if section.settings.image != blank -%}
-      {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(max-width: 900px) 100vw, 50vw' }}
+      {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(max-width: 900px) 100vw, 50vw', alt: section.settings.caption }}
+    {%- elsif section.settings.use_default_image -%}
+      <img src="{{ 'feature.jpg' | asset_url }}" alt="{{ section.settings.caption | escape }}" width="1200" height="1500" loading="lazy">
     {%- else -%}
       {% render 'fallback-image', index: 4, angled: true, sizes: '(max-width: 900px) 100vw, 50vw' %}
     {%- endif -%}
@@ -31,9 +35,10 @@
   "name": "Bild mit Produkt",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Bild", "info": "Hochformat 4:5" },
+    { "type": "checkbox", "id": "use_default_image", "label": "Standard-Bild verwenden (Uhr mit Armband), wenn kein Bild gewählt ist", "default": true },
     { "type": "text", "id": "caption", "label": "Bildunterschrift", "default": "Neben der Uhr. Oder ganz für sich." },
     { "type": "product", "id": "product", "label": "Produkt" },
-    { "type": "text", "id": "variant_name", "label": "Farbe (Name)", "default": "Riva" }
+    { "type": "text", "id": "variant_name", "label": "Farbe (Name)", "default": "Granato" }
   ],
   "presets": [{ "name": "Bild mit Produkt" }]
 }
