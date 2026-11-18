@@ -142,7 +142,7 @@
         s.classList.toggle("is-active", on);
         s.setAttribute("aria-checked", String(on));
       });
-      input.value = sw.dataset.variantId;
+      if (input) input.value = sw.dataset.variantId;
       $("[data-variant-label]", product).textContent = sw.dataset.variantName;
       $("[data-variant-color]", product).textContent = sw.dataset.variantColor ? `· ${sw.dataset.variantColor}` : "";
       $("[data-price]", product).innerHTML = (sw.dataset.compare ? `<s>${sw.dataset.compare}</s>` : "") + sw.dataset.price;

@@ -21,11 +21,27 @@
         </div>
       {%- endif -%}
       <div class="pdp-main">
+        {%- liquid
+          assign first_id = current.featured_media.id | default: product.featured_media.id
+          for m in product.media
+            assign alt_name = m.alt | split: ' |' | first | strip
+            if alt_name == current_name
+              assign first_id = m.id
+              break
+            endif
+          endfor
+        -%}
         {%- for m in product.media -%}
           {%- assign alt_name = m.alt | split: ' |' | first | strip -%}
-          <div class="product-image pdp-slide" data-slide="{{ m.id }}" data-variant-name="{{ alt_name | escape }}" hidden>
-            {{ m | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(max-width: 900px) 100vw, 50vw', alt: m.alt }}
-          </div>
+          {%- if m.id == first_id -%}
+            <div class="product-image pdp-slide" data-slide="{{ m.id }}" data-variant-name="{{ alt_name | escape }}">
+              {{ m | image_url: width: 1600 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600, 900, 1200, 1600', sizes: '(max-width: 900px) 100vw, 50vw', alt: m.alt }}
+            </div>
+          {%- else -%}
+            <div class="product-image pdp-slide" data-slide="{{ m.id }}" data-variant-name="{{ alt_name | escape }}" hidden>
+              {{ m | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(max-width: 900px) 100vw, 50vw', alt: m.alt }}
+            </div>
+          {%- endif -%}
         {%- else -%}
           <div class="product-image"><span class="product-image-empty">Foto folgt</span></div>
         {%- endfor -%}
