@@ -4,7 +4,6 @@ import { getCatalog, findImage } from "@/lib/catalog";
 import { toCards } from "@/lib/shop";
 import { site } from "@/lib/site";
 import { ProductCard } from "@/components/ProductCard";
-import { LogoScript } from "@/components/LogoScript";
 import { InstagramIcon } from "@/components/Icons";
 
 // Bilder der Startseite: einfach unter diesen Namen in public/bilder/ ablegen
@@ -106,7 +105,7 @@ export default function HomePage() {
       </section>
 
       <section className="statement">
-        <LogoScript className="statement-logo" />
+        <Image src="/bilder/logo-zeichen.png" alt="Nodotempo" width={600} height={777} className="statement-mark" />
         <p>
           <em>Nodo</em>, der Knoten. <em>Tempo</em>, die Zeit. Jedes Armband wird von Hand geknüpft und lässt sich über
           zwei Schiebeknoten stufenlos anpassen, für jedes Handgelenk und jede Uhr.

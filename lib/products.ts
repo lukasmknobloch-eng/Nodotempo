@@ -2,7 +2,7 @@
 //  PRODUKTKATALOG
 //
 //  Zwei Modelle (Nodo No. 1 und Nodo No. 2), jeweils in mehreren Farben.
-//  Preise in Cent (1790 = 17,90 €).
+//  Preise in Cent (1690 = 16,90 €).
 //
 //  BILDER: Pro Farbe ein Ordner  public/produkte/<modell>/<farbe>/
 //  z. B. public/produkte/nodo-no-2/gelb/1.jpg, 2.jpg, …
@@ -53,7 +53,7 @@ export const products: Product[] = [
     slug: "nodo-no-2",
     name: "Nodo No. 2",
     subtitle: "Das Original",
-    price: 1790,
+    price: 1690,
     description:
       "Geflochtenes Paracord, von Hand zu einem Armband geknüpft. Zwei Schiebeknoten machen es stufenlos verstellbar: an den Enden ziehen, bis es sitzt. Leicht genug für jeden Tag, präsent genug, um neben einer Uhr zu bestehen.",
     details: [
@@ -80,7 +80,7 @@ export const products: Product[] = [
     slug: "nodo-no-1",
     name: "Nodo No. 1",
     subtitle: "Die feine Version",
-    price: 1490,
+    price: 1390,
     description:
       "Die schmalere Schwester von Nodo No. 2: dünneres Paracord, derselbe Knoten. Zurückhaltend allein getragen, ideal zum Kombinieren mit mehreren Farben.",
     details: [

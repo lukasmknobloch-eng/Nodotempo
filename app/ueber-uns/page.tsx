@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { findImage, getCatalog } from "@/lib/catalog";
-import { LogoScript } from "@/components/LogoScript";
 
 export const metadata: Metadata = {
   title: "Die Marke",
@@ -17,7 +16,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="about-intro">
-        <LogoScript className="statement-logo" />
+        <Image src="/bilder/logo-zeichen.png" alt="Nodotempo" width={600} height={777} className="statement-mark" />
         <h1>
           <em>Nodo</em>, der Knoten. <em>Tempo</em>, die Zeit.
         </h1>

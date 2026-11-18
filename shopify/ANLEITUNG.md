@@ -12,7 +12,7 @@ Ab jetzt übernimmt Shopify jede Änderung, die Claude auf diesem Branch hochlä
 ## 2. Produkte importieren
 1. Datei `shopify/produkte-import.csv` aus dem Repository herunterladen
 2. **Produkte → Importieren** → Datei auswählen → **Produkte importieren**
-3. Ergebnis: Nodo No. 2 (11 Farben, 17,90 €) und Nodo No. 1 (7 Farben, 14,90 €) mit allen Fotos
+3. Ergebnis: Nodo No. 2 (11 Farben, 16,90 €) und Nodo No. 1 (7 Farben, 13,90 €) mit allen Fotos
 
 Wichtig: Der Alt-Text der Bilder (z. B. `Cielo | Blau / Weiß`) ordnet die Fotos den Farben zu. Bei neuen Fotos immer so benennen.
 
