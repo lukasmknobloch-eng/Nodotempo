@@ -1,6 +1,6 @@
 {%- comment -%}
   Zwei Modelle gleichwertig nebeneinander (auch auf dem Handy).
-  Ohne eigenes Bild wird das zweite Produktfoto (schräge Ansicht) verwendet.
+  Ohne eigenes Bild wird das zweite Foto der gewählten Farbe (schräge Ansicht) verwendet.
 {%- endcomment -%}
 <section class="models">
   {%- for i in (1..2) -%}
@@ -8,18 +8,39 @@
       if i == 1
         assign p = section.settings.product_1 | default: all_products['nodo-no-1']
         assign img = section.settings.image_1
+        assign color = section.settings.color_1
       else
         assign p = section.settings.product_2 | default: all_products['nodo-no-2']
         assign img = section.settings.image_2
+        assign color = section.settings.color_2
       endif
       if p == blank or p.title == blank
         continue
+      endif
+      assign url = p.url
+      assign hits = 0
+      for v in p.variants
+        if v.title == color
+          assign url = v.url
+        endif
+      endfor
+      if img == blank
+        for m in p.media
+          assign alt_name = m.alt | split: ' |' | first | strip
+          if alt_name == color
+            assign hits = hits | plus: 1
+            assign img = m
+            if hits == 2
+              break
+            endif
+          endif
+        endfor
       endif
       if img == blank
         assign img = p.images[1] | default: p.featured_image
       endif
     -%}
-    <a href="{{ p.url }}" class="model-tile">
+    <a href="{{ url }}" class="model-tile">
       <div class="model-media">
         {%- if img != blank -%}
           {{ img | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '400, 700, 1000, 1400', sizes: '(max-width: 700px) 50vw, 50vw', alt: p.title }}
@@ -41,9 +62,11 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Kleine Zeile", "default": "The Nato-Series" },
     { "type": "product", "id": "product_1", "label": "Modell links", "info": "Leer = Nodo No. 1" },
-    { "type": "image_picker", "id": "image_1", "label": "Bild links" },
+    { "type": "text", "id": "color_1", "label": "Farbe links", "default": "Ciliegia", "info": "Farbname wie im Shop, z. B. Ciliegia" },
+    { "type": "image_picker", "id": "image_1", "label": "Bild links", "info": "Optional, ersetzt das Foto der Farbe" },
     { "type": "product", "id": "product_2", "label": "Modell rechts", "info": "Leer = Nodo No. 2" },
-    { "type": "image_picker", "id": "image_2", "label": "Bild rechts" }
+    { "type": "text", "id": "color_2", "label": "Farbe rechts", "default": "Moka", "info": "Farbname wie im Shop, z. B. Moka" },
+    { "type": "image_picker", "id": "image_2", "label": "Bild rechts", "info": "Optional, ersetzt das Foto der Farbe" }
   ],
   "presets": [{ "name": "Zwei Modelle" }]
 }
