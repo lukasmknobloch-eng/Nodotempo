@@ -1,1 +1,91 @@
-[]
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Nodotempo",
+    "theme_version": "1.0.0",
+    "theme_author": "Nodotempo",
+    "theme_documentation_url": "https://github.com/lukasmknobloch-eng/Nodotempo",
+    "theme_support_url": "https://github.com/lukasmknobloch-eng/Nodotempo"
+  },
+  {
+    "name": "Farben",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Hintergrund",
+        "default": "#faf8f4"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text & Buttons (Dunkelgrün)",
+        "default": "#14291f"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Akzent (Gold)",
+        "default": "#a8865a"
+      },
+      {
+        "type": "color",
+        "id": "color_image_background",
+        "label": "Bildhintergrund",
+        "default": "#dedad9"
+      }
+    ]
+  },
+  {
+    "name": "Marke",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Quadratisch, z. B. das N aus dem Schriftzug"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_mark",
+        "label": "Logo-Zeichen (N im Quadrat)",
+        "info": "Optional, ersetzt das mitgelieferte Logo-Zeichen. Erscheint auf der Passwortseite und in der Markenzeile. Die Kopfzeile zeigt immer nur den Schriftzug."
+      },
+      {
+        "type": "url",
+        "id": "instagram_url",
+        "label": "Instagram",
+        "default": "https://instagram.com/nodo.tempo"
+      },
+      {
+        "type": "text",
+        "id": "instagram_handle",
+        "label": "Instagram-Name",
+        "default": "nodo.tempo"
+      },
+      {
+        "type": "text",
+        "id": "tax_note",
+        "label": "Hinweis zu Preisen",
+        "default": "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet."
+      },
+      {
+        "type": "text",
+        "id": "fit_note",
+        "label": "Hinweis zur Größe",
+        "default": "Einheitsgröße, stufenlos verstellbar über zwei Schiebeknoten."
+      },
+      {
+        "type": "range",
+        "id": "free_shipping_from",
+        "label": "Kostenloser Versand ab (€)",
+        "min": 0,
+        "max": 200,
+        "step": 5,
+        "unit": "€",
+        "default": 50,
+        "info": "Nur für die Anzeige im Warenkorb. Die echte Regel stellst du unter Einstellungen → Versand ein. 0 blendet die Anzeige aus."
+      }
+    ]
+  }
+]
