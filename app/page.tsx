@@ -14,7 +14,7 @@ import { InstagramIcon } from "@/components/Icons";
 //   editorial-2.jpg
 //   modell-no-2.jpg   Bild für Nodo No. 2 (zwei Modelle nebeneinander)
 //   modell-no-1.jpg   Bild für Nodo No. 1
-//   feature.jpg       großes Bild links neben dem Produkt
+//   feature.jpg       großes Bild links neben dem Produkt (Hochformat 4:5)
 //   instagram-1.jpg … instagram-6.jpg
 
 function Photo({ src, alt, sizes, preload }: { src?: string; alt: string; sizes: string; preload?: boolean }) {
@@ -42,8 +42,9 @@ export default function HomePage() {
     const fallback = slug === "nodo-no-2" ? angled(color) : angled1(color);
     return [{ product, color, image: findImage(`bilder/modell-${slug.replace("nodo-", "")}`) ?? fallback }];
   });
-  const feature = findImage("bilder/feature") ?? angled("blau-sand");
-  const featureCard = no2.find((c) => c.variant?.id === "blau-sand") ?? no2[0];
+  const featurePhoto = findImage("bilder/feature");
+  const feature = featurePhoto ?? angled("bordeaux-grau");
+  const featureCard = no2.find((c) => c.variant?.id === "bordeaux-grau") ?? no2[0];
   const instagram = Array.from({ length: 6 }, (_, i) => findImage(`bilder/instagram-${i + 1}`) ?? topView(i + 2));
 
   return (
@@ -112,7 +113,7 @@ export default function HomePage() {
       </section>
 
       <section className="feature">
-        <div className="feature-media">
+        <div className={`feature-media ${featurePhoto ? "feature-photo" : ""}`}>
           <Photo src={feature} alt="Nodotempo Armband" sizes="(max-width: 900px) 100vw, 50vw" />
           <p className="feature-caption">Neben der Uhr. Oder ganz für sich.</p>
         </div>
