@@ -52,6 +52,8 @@ Die Texte stehen schon im Theme und lassen sich im Theme-Editor ändern.
 ## 8. Vorschau nur für Freunde (Passwort)
 **Onlineshop → Einstellungen → Passwortschutz**: Passwort festlegen und an Freunde weitergeben. Sie sehen den ganzen Shop mit allen Farben. Die Passwortseite ist im Nodotempo-Design und hat ein Newsletter-Feld für alle ohne Passwort.
 
+**Vorschau-Modus:** Im Theme ist er standardmäßig **an**. Dann steht auf der Produktseite „Bald erhältlich“ statt „In den Warenkorb“, Warenkorb und Kasse sind ausgeblendet. Niemand kann bestellen, auch mit Passwort nicht. Ein- und ausschalten: **Onlineshop → Themes → Anpassen → Theme-Einstellungen (Zahnrad) → Vorschau-Modus**.
+
 ## 9. Bilder im Theme-Editor
 **Onlineshop → Themes → Anpassen**:
 - Startseite → **Großes Bild**: Titelbild hochladen (wird automatisch schwarz-weiß)
@@ -62,6 +64,7 @@ Die Texte stehen schon im Theme und lassen sich im Theme-Editor ändern.
 - Tarif wählen
 - Testbestellung machen
 - Domain verbinden (**Einstellungen → Domains**)
+- Vorschau-Modus ausschalten (Theme-Einstellungen)
 - Passwortschutz entfernen
 - Bestell-E-Mails prüfen (**Einstellungen → Benachrichtigungen**)
 - LUCID-Registrierung (Verpackungsgesetz) erledigt
