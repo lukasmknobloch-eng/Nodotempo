@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCatalog, findImage } from "@/lib/catalog";
-import { toCards } from "@/lib/shop";
+import { toCards, productHref } from "@/lib/shop";
 import { site } from "@/lib/site";
 import { formatPrice } from "@/lib/format";
 import { ProductCard } from "@/components/ProductCard";
@@ -37,8 +37,10 @@ export default function HomePage() {
   const models = ["nodo-no-1", "nodo-no-2"].flatMap((slug) => {
     const product = catalog.find((p) => p.slug === slug);
     if (!product) return [];
-    const fallback = slug === "nodo-no-2" ? angled("bordeaux-grau") : angled1("notte");
-    return [{ product, image: findImage(`bilder/modell-${slug.replace("nodo-", "")}`) ?? fallback }];
+    // Gezeigte Farbe je Modell
+    const color = slug === "nodo-no-2" ? "braun-beige" : "ciliegia";
+    const fallback = slug === "nodo-no-2" ? angled(color) : angled1(color);
+    return [{ product, color, image: findImage(`bilder/modell-${slug.replace("nodo-", "")}`) ?? fallback }];
   });
   const feature = findImage("bilder/feature") ?? angled("blau-sand");
   const featureCard = no2.find((c) => c.variant?.id === "blau-sand") ?? no2[0];
@@ -71,8 +73,8 @@ export default function HomePage() {
       </section>
 
       <section className="models">
-        {models.map(({ product, image }) => (
-          <Link key={product.slug} href={`/produkt/${product.slug}`} className="model-tile">
+        {models.map(({ product, color, image }) => (
+          <Link key={product.slug} href={productHref(product.slug, color)} className="model-tile">
             <div className="model-media">
               <Photo src={image} alt={product.name} sizes="(max-width: 700px) 100vw, 50vw" />
             </div>
