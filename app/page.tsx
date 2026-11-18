@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getCatalog, findImage } from "@/lib/catalog";
 import { toCards } from "@/lib/shop";
 import { site } from "@/lib/site";
+import { formatPrice } from "@/lib/format";
 import { ProductCard } from "@/components/ProductCard";
 import { InstagramIcon } from "@/components/Icons";
 
@@ -11,7 +12,8 @@ import { InstagramIcon } from "@/components/Icons";
 //   hero.jpg          großes Bild ganz oben
 //   editorial-1.jpg   zwei Bilder nebeneinander
 //   editorial-2.jpg
-//   banner.jpg        breites Bild für Nodo No. 1
+//   modell-no-2.jpg   Bild für Nodo No. 2 (zwei Modelle nebeneinander)
+//   modell-no-1.jpg   Bild für Nodo No. 1
 //   feature.jpg       großes Bild links neben dem Produkt
 //   instagram-1.jpg … instagram-6.jpg
 
@@ -23,12 +25,21 @@ export default function HomePage() {
   const catalog = getCatalog();
   const cards = toCards(catalog);
   const no2 = cards.filter((c) => c.product.slug === "nodo-no-2");
+  const no1 = cards.filter((c) => c.product.slug === "nodo-no-1");
   const angled = (id: string) => no2.find((c) => c.variant?.id === id)?.images[1] ?? no2[0]?.images[0];
+  const angled1 = (id: string) => no1.find((c) => c.variant?.id === id)?.images[1] ?? no1[0]?.images[0];
+  // Je vier Farben beider Modelle im Wechsel
+  const mixed = Array.from({ length: 4 }, (_, i) => [no2[i], no1[i]]).flat().filter(Boolean);
   const topView = (i: number) => no2[i % Math.max(no2.length, 1)]?.images[0];
 
   const hero = findImage("bilder/hero");
   const editorial = [findImage("bilder/editorial-1") ?? angled("beere-rosa"), findImage("bilder/editorial-2") ?? angled("hellgruen")];
-  const banner = findImage("bilder/banner");
+  const models = ["nodo-no-2", "nodo-no-1"].flatMap((slug) => {
+    const product = catalog.find((p) => p.slug === slug);
+    if (!product) return [];
+    const fallback = slug === "nodo-no-2" ? angled("bordeaux-grau") : angled1("notte");
+    return [{ product, image: findImage(`bilder/modell-${slug.replace("nodo-", "")}`) ?? fallback }];
+  });
   const feature = findImage("bilder/feature") ?? angled("blau-sand");
   const featureCard = no2.find((c) => c.variant?.id === "blau-sand") ?? no2[0];
   const instagram = Array.from({ length: 6 }, (_, i) => findImage(`bilder/instagram-${i + 1}`) ?? topView(i + 2));
@@ -59,9 +70,27 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="models">
+        {models.map(({ product, image }) => (
+          <Link key={product.slug} href={`/produkt/${product.slug}`} className="model-tile">
+            <div className="model-media">
+              <Photo src={image} alt={product.name} sizes="(max-width: 700px) 100vw, 50vw" />
+            </div>
+            <div className="model-copy">
+              <p className="eyebrow">The Nato-Series</p>
+              <h2>{product.name}</h2>
+              <p className="muted">
+                {product.variants.length} Farben · {formatPrice(product.price)}
+              </p>
+              <span className="text-link">{product.name} ansehen</span>
+            </div>
+          </Link>
+        ))}
+      </section>
+
       <section className="section-grid">
         <div className="grid-products">
-          {no2.slice(0, 8).map((c, i) => (
+          {mixed.map((c, i) => (
             <ProductCard key={c.key} card={c} preload={i < 4} />
           ))}
         </div>
@@ -80,22 +109,6 @@ export default function HomePage() {
         ))}
       </section>
 
-      <section className={`banner ${banner ? "banner-photo" : ""}`}>
-        {banner && (
-          <div className="banner-media">
-            <Photo src={banner} alt="Nodo No. 1" sizes="100vw" />
-          </div>
-        )}
-        <div className="banner-copy">
-          <p className="eyebrow">The Nato-Series</p>
-          <h2>Nodo No. 1</h2>
-          <p>Feineres Fallschirmseil, derselbe Knoten. Jetzt erhältlich.</p>
-          <Link href="/produkt/nodo-no-1" className="btn btn-outline-light">
-            Nodo No. 1 ansehen
-          </Link>
-        </div>
-      </section>
-
       <section className="feature">
         <div className="feature-media">
           <Photo src={feature} alt="Nodotempo Armband" sizes="(max-width: 900px) 100vw, 50vw" />
@@ -105,7 +118,7 @@ export default function HomePage() {
       </section>
 
       <section className="statement">
-        <Image src="/bilder/logo-zeichen.png" alt="Nodotempo" width={600} height={777} className="statement-mark" />
+        <Image src="/bilder/logo-zeichen.png" alt="Nodotempo" width={600} height={600} className="statement-mark" />
         <p>
           <em>Nodo</em>, der Knoten. <em>Tempo</em>, die Zeit. Jedes Armband wird von Hand geknüpft und lässt sich über
           zwei Schiebeknoten stufenlos anpassen, für jedes Handgelenk und jede Uhr.

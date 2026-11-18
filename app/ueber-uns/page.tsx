@@ -16,7 +16,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="about-intro">
-        <Image src="/bilder/logo-zeichen.png" alt="Nodotempo" width={600} height={777} className="statement-mark" />
+        <Image src="/bilder/logo-zeichen.png" alt="Nodotempo" width={600} height={600} className="statement-mark" />
         <h1>
           <em>Nodo</em>, der Knoten. <em>Tempo</em>, die Zeit.
         </h1>

@@ -56,7 +56,7 @@ Die Texte stehen schon im Theme und lassen sich im Theme-Editor ändern.
 **Onlineshop → Themes → Anpassen**:
 - Startseite → **Großes Bild**: Titelbild hochladen (wird automatisch schwarz-weiß)
 - **Theme-Einstellungen → Marke**: Logo-Zeichen (N im Quadrat) und Favicon hochladen
-- Optional: Zwei Bilder, Banner, Bild mit Produkt, Instagram-Raster
+- Optional: Bilder für „Zwei Modelle“, zwei Bilder, Bild mit Produkt, Instagram-Raster
 
 ## 10. Vor dem Livegang
 - Tarif wählen
