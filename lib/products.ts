@@ -95,6 +95,8 @@ export const products: Product[] = [
       { id: "bordo", name: "Bordò", color: "Bordeaux", added: 12 },
       { id: "celeste", name: "Celeste", color: "Hellblau", added: 16 },
       { id: "oliva", name: "Oliva", color: "Grün / Beige", added: 15 },
+      { id: "ciliegia", name: "Ciliegia", color: "Bordeaux / Weiß", added: 18 },
+      { id: "cipria", name: "Cipria", color: "Rosa", added: 17 },
     ],
   },
 ];
