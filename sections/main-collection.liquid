@@ -8,7 +8,10 @@
   <section class="page-shop">
     <div class="toolbar">
       <div class="toolbar-filters">
-        <h1 class="toolbar-title">{{ collection.title }}</h1>
+        <div>
+          <h1 class="toolbar-title">{{ collection.title }}</h1>
+          {%- if collection.description != blank -%}<div class="collection-intro rte">{{ collection.description }}</div>{%- endif -%}
+        </div>
       </div>
       <div class="toolbar-right">
         <span class="muted">{{ variant_count }} Artikel</span>

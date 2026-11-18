@@ -1841,3 +1841,16 @@ body.template-index:has(.hero-photo) .header:not(.is-scrolled) {
   border-top: 1px solid var(--line);
   text-align: left;
 }
+
+.pdp-series {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.collection-intro {
+  margin-top: 6px;
+  color: var(--ink-soft);
+  max-width: 560px;
+}

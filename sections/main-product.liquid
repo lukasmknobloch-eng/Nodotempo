@@ -33,6 +33,12 @@
     </div>
 
     <div class="pdp-info">
+      {%- for tag in product.tags -%}
+        {%- if tag contains 'Serie:' -%}
+          <p class="pdp-series">{{ tag | remove_first: 'Serie:' | strip }}</p>
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
       <h1 class="pdp-title">{{ product.title }}</h1>
       {%- if product.type != blank -%}<p class="pdp-subtitle">{{ product.type }}</p>{%- endif -%}
       <p class="pdp-price" data-price>
