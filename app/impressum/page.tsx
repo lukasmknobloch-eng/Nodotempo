@@ -22,12 +22,16 @@ export default function ImprintPage() {
       </p>
       <h2>Kontakt</h2>
       <p>
-        Telefon: {c.phone}
-        <br />
+        {c.phone && !c.phone.startsWith("[") && (
+          <>
+            Telefon: {c.phone}
+            <br />
+          </>
+        )}
         E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>
       </p>
-      <h2>Umsatzsteuer-ID</h2>
-      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: {c.vatId}</p>
+      <h2>Umsatzsteuer</h2>
+      <p>Kleinunternehmer gemäß § 19 UStG. Es wird keine Umsatzsteuer berechnet und ausgewiesen.</p>
       <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
       <p>
         {c.owner}, {c.street}, {c.city}

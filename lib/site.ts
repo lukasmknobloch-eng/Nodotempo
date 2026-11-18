@@ -13,18 +13,20 @@ export const site = {
 
   // Angaben für Impressum & Rechtstexte – bitte vor dem Livegang ausfüllen.
   company: {
-    owner: "[Vor- und Nachname]",
-    legalName: "Nodotempo – Inhaber [Vor- und Nachname]",
-    street: "[Straße Hausnummer]",
-    city: "[PLZ Ort]",
+    owner: "Lukas Knobloch",
+    legalName: "Nodotempo – Inhaber Lukas Knobloch",
+    street: "Goethestr. 2",
+    city: "69214 Eppelheim",
     country: "Deutschland",
     phone: "[Telefonnummer]",
-    vatId: "[USt-IdNr., falls vorhanden]",
+    vatId: "",
+    /** Kleinunternehmer nach § 19 UStG: es wird keine Umsatzsteuer ausgewiesen */
+    smallBusiness: true,
   },
 
   currency: "EUR",
   locale: "de-DE",
-  taxNote: "inkl. MwSt., zzgl. Versand",
+  taxNote: "zzgl. Versand. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet",
 
   shipping: {
     // Beträge in Cent

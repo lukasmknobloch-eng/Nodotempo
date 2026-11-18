@@ -22,9 +22,9 @@ const root = path.resolve(dir, "../..");
 // ─── Inhalte ────────────────────────────────────────────────────────────────
 
 const company = {
-  owner: "[Vor- und Nachname]",
-  street: "[Straße Hausnummer]",
-  city: "[PLZ Ort]",
+  owner: "Lukas Knobloch",
+  street: "Goethestr. 2",
+  city: "69214 Eppelheim",
   email: "hallo@nodotempo.de",
   web: "nodotempo.de",
   instagram: "nodo.tempo",

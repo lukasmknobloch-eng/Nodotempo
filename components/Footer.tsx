@@ -62,7 +62,7 @@ export function Footer() {
           © {new Date().getFullYear()} Nodotempo · <a href={site.instagram}>Instagram</a>
         </p>
         <PaymentBadges />
-        <p>Alle Preise {site.taxNote}</p>
+        <p>Alle Preise {site.taxNote}.</p>
       </div>
     </footer>
   );

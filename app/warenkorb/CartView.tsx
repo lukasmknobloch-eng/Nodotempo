@@ -82,7 +82,7 @@ export function CartView() {
             <strong>{formatPrice(subtotal + shipping)}</strong>
           </div>
           <p className="muted small">
-            inkl. MwSt. Rabattcodes kannst du im nächsten Schritt einlösen. Versandkosten ins Ausland werden an der Kasse
+            Gemäß § 19 UStG ohne Umsatzsteuer. Rabattcodes kannst du im nächsten Schritt einlösen. Versandkosten ins Ausland werden an der Kasse
             berechnet.
           </p>
           {error && <p className="form-error">{error}</p>}
