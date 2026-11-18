@@ -93,6 +93,8 @@ export const products: Product[] = [
       { id: "pino", name: "Pino", color: "Dunkelgrün", added: 14 },
       { id: "notte", name: "Notte", color: "Navy", added: 13 },
       { id: "bordo", name: "Bordò", color: "Bordeaux", added: 12 },
+      { id: "celeste", name: "Celeste", color: "Hellblau", added: 16 },
+      { id: "oliva", name: "Oliva", color: "Grün / Beige", added: 15 },
     ],
   },
 ];
