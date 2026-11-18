@@ -1,0 +1,33 @@
+{%- comment -%}
+  Platzhalterbild aus den Produktfotos, solange im Theme-Editor kein eigenes Bild gewählt ist.
+  Parameter: index (welche Farbe), angled (true = Schrägansicht), sizes, eager (optional)
+{%- endcomment -%}
+{%- liquid
+  assign p = all_products['nodo-no-2']
+  if p == empty or p == blank
+    assign p = collections.all.products.first
+  endif
+  if p
+    assign count = p.variants.size
+    assign i = index | default: 0 | modulo: count
+    assign v = p.variants[i]
+    assign img = v.featured_media | default: p.featured_media
+    if angled
+      for m in p.media
+        assign alt_name = m.alt | split: ' |' | first | strip
+        if alt_name == v.title and m.id != img.id
+          assign img = m
+          break
+        endif
+      endfor
+    endif
+  endif
+  if eager
+    assign loading = 'eager'
+  else
+    assign loading = 'lazy'
+  endif
+-%}
+{%- if img -%}
+  {{ img | image_url: width: 1600 | image_tag: loading: loading, widths: '600, 900, 1200, 1600', sizes: sizes, alt: p.title }}
+{%- endif -%}

@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": { "show_related": true },
+      "blocks": {
+        "details": {
+          "type": "accordion",
+          "settings": {
+            "title": "Details",
+            "content": "<ul><li>Stufenlos verstellbar über zwei Schiebeknoten</li><li>Passt für nahezu jedes Handgelenk</li><li>Von Hand geknüpft</li><li>Kratzt nicht am Uhrengehäuse</li></ul>"
+          }
+        },
+        "care": {
+          "type": "accordion",
+          "settings": {
+            "title": "Material & Pflege",
+            "content": "<p>Paracord, geflochtene Kordel nach dem Vorbild der Fallschirmleine. Materialzusammensetzung siehe Produktbeschreibung.</p><p>Bei Bedarf mit lauwarmem Wasser und etwas milder Seife von Hand waschen und an der Luft trocknen lassen. Nicht in den Trockner geben.</p>"
+          }
+        }
+      },
+      "block_order": ["details", "care"]
+    }
+  },
+  "order": ["main"]
+}

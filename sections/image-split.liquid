@@ -1,0 +1,27 @@
+<section class="split">
+  <div class="split-media">
+    {%- if section.settings.image_1 != blank -%}
+      {{ section.settings.image_1 | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(max-width: 700px) 100vw, 50vw' }}
+    {%- else -%}
+      {% render 'fallback-image', index: 3, angled: true, sizes: '(max-width: 700px) 100vw, 50vw' %}
+    {%- endif -%}
+  </div>
+  <div class="split-media">
+    {%- if section.settings.image_2 != blank -%}
+      {{ section.settings.image_2 | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(max-width: 700px) 100vw, 50vw' }}
+    {%- else -%}
+      {% render 'fallback-image', index: 5, angled: true, sizes: '(max-width: 700px) 100vw, 50vw' %}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Zwei Bilder",
+  "settings": [
+    { "type": "image_picker", "id": "image_1", "label": "Bild links", "info": "Quadratisch. Ohne Bild wird ein Produktfoto gezeigt." },
+    { "type": "image_picker", "id": "image_2", "label": "Bild rechts" }
+  ],
+  "presets": [{ "name": "Zwei Bilder" }]
+}
+{% endschema %}

@@ -1,0 +1,55 @@
+<footer class="footer">
+  <div class="footer-logo">{% render 'logo' %}</div>
+  <div class="footer-grid">
+    <div class="footer-about">{{ section.settings.about }}</div>
+    <div class="footer-cols">
+      <div>
+        <p class="footer-label">Service</p>
+        <ul>
+          <li><a href="{{ routes.all_products_collection_url }}">Alle Armbänder</a></li>
+          <li><a href="/pages/tragen">Tragen & Größe</a></li>
+          <li><a href="/pages/faq">Häufige Fragen</a></li>
+          <li><a href="/pages/kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-label">Rechtliches</p>
+        <ul>
+          {%- for policy in shop.policies -%}
+            <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+    <div class="footer-newsletter">
+      <p class="footer-title">{{ section.settings.newsletter_heading }}</p>
+      {% render 'newsletter-form', id: 'footer' %}
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {{ 'now' | date: '%Y' }} {{ shop.name }}
+      {%- if settings.instagram_url != blank %} · <a href="{{ settings.instagram_url }}">Instagram</a>{% endif -%}
+    </p>
+    <ul class="payment-icons">
+      {%- for type in shop.enabled_payment_types -%}
+        <li>{{ type | payment_type_svg_tag }}</li>
+      {%- endfor -%}
+    </ul>
+    <p>{{ settings.tax_note }}</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Fußbereich",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "about",
+      "label": "Text",
+      "default": "<p>Nodo, der Knoten. Tempo, die Zeit. Wir knüpfen Armbänder, die neben der Uhr getragen werden und ganz für sich bestehen. <strong>Getragen neben der Zeit.</strong></p>"
+    },
+    { "type": "text", "id": "newsletter_heading", "label": "Newsletter-Überschrift", "default": "Neuheiten & neue Farben zuerst erfahren" }
+  ]
+}
+{% endschema %}

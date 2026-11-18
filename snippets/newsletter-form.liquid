@@ -1,0 +1,15 @@
+{%- assign form_id = 'newsletter-' | append: id -%}
+{%- form 'customer', id: form_id, class: 'newsletter' -%}
+  <input type="hidden" name="contact[tags]" value="newsletter">
+  {%- if form.posted_successfully? -%}
+    <p class="newsletter-done">Danke für deine Anmeldung!</p>
+  {%- else -%}
+    <div class="newsletter-row">
+      <label class="sr-only" for="newsletter-email-{{ id }}">E-Mail-Adresse</label>
+      <input id="newsletter-email-{{ id }}" type="email" name="contact[email]" required placeholder="Deine E-Mail" autocomplete="email">
+      <button class="text-btn" type="submit">Abonnieren</button>
+    </div>
+    {%- if form.errors -%}<p class="form-error">{{ form.errors | default_errors }}</p>{%- endif -%}
+    <p class="muted small">Abmeldung jederzeit möglich.{% if shop.privacy_policy %} Hinweise in der <a href="{{ shop.privacy_policy.url }}">Datenschutzerklärung</a>.{% endif %}</p>
+  {%- endif -%}
+{%- endform -%}

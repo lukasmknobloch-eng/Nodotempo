@@ -1,0 +1,8 @@
+<article class="page container narrow prose">
+  <h1 class="h1 page-head">{{ article.title }}</h1>
+  <p class="muted small">{{ article.published_at | date: '%d.%m.%Y' }}</p>
+  <div class="rte">{{ article.content }}</div>
+</article>
+{% schema %}
+{ "name": "Beitrag", "settings": [] }
+{% endschema %}

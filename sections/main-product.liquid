@@ -1,0 +1,164 @@
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign current_name = current.title
+  assign current_color = current.featured_media.alt | split: '|' | last | strip
+  if current_color == current_name
+    assign current_color = ''
+  endif
+-%}
+<section class="page-pdp" data-product data-product-url="{{ product.url }}">
+  <div class="pdp">
+    <div class="pdp-gallery">
+      {%- if product.media.size > 1 -%}
+        <div class="pdp-thumbs" role="tablist" aria-label="Produktbilder">
+          {%- for m in product.media -%}
+            {%- assign alt_name = m.alt | split: ' |' | first | strip -%}
+            <button type="button" class="pdp-thumb" data-thumb="{{ m.id }}" data-variant-name="{{ alt_name | escape }}" aria-label="Bild {{ forloop.index }}"
+              {% unless product.has_only_default_variant or alt_name == current_name %}hidden{% endunless %}>
+              <div class="product-image">{{ m | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</div>
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      <div class="pdp-main">
+        {%- for m in product.media -%}
+          {%- assign alt_name = m.alt | split: ' |' | first | strip -%}
+          <div class="product-image pdp-slide" data-slide="{{ m.id }}" data-variant-name="{{ alt_name | escape }}" hidden>
+            {{ m | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(max-width: 900px) 100vw, 50vw', alt: m.alt }}
+          </div>
+        {%- else -%}
+          <div class="product-image"><span class="product-image-empty">Foto folgt</span></div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="pdp-info">
+      <h1 class="pdp-title">{{ product.title }}</h1>
+      {%- if product.type != blank -%}<p class="pdp-subtitle">{{ product.type }}</p>{%- endif -%}
+      <p class="pdp-price" data-price>
+        {%- if current.compare_at_price > current.price -%}<s>{{ current.compare_at_price | money }}</s>{%- endif -%}
+        {{ current.price | money }}
+      </p>
+      <p class="muted small">
+        {{ settings.tax_note }}
+        {%- if shop.shipping_policy %} <a href="{{ shop.shipping_policy.url }}" class="underline">Versand</a> wird an der Kasse berechnet.{% endif -%}
+      </p>
+
+      {%- unless product.has_only_default_variant -%}
+        <div class="pdp-option">
+          <p class="pdp-option-label">Farbe: <span data-variant-label>{{ current_name }}</span> <span class="muted" data-variant-color>{% if current_color != blank %}· {{ current_color }}{% endif %}</span></p>
+          <div class="swatches" role="radiogroup" aria-label="Farbe wählen">
+            {%- for v in product.variants -%}
+              {%- assign color = v.featured_media.alt | split: '|' | last | strip -%}
+              {%- if color == v.title -%}{%- assign color = '' -%}{%- endif -%}
+              <button type="button" role="radio"
+                class="swatch{% if v.id == current.id %} is-active{% endif %}{% unless v.available %} is-soldout{% endunless %}"
+                aria-checked="{% if v.id == current.id %}true{% else %}false{% endif %}"
+                aria-label="{{ v.title | escape }}{% if color != blank %} ({{ color | escape }}){% endif %}"
+                title="{{ v.title | escape }}{% if color != blank %} · {{ color | escape }}{% endif %}"
+                data-variant-id="{{ v.id }}"
+                data-variant-name="{{ v.title | escape }}"
+                data-variant-color="{{ color | escape }}"
+                data-available="{{ v.available }}"
+                data-price="{{ v.price | money | escape }}"
+                data-compare="{% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | escape }}{% endif %}">
+                <div class="product-image">
+                  {%- if v.featured_media -%}{{ v.featured_media | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+                </div>
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endunless -%}
+
+      {%- if settings.fit_note != blank -%}
+        <p class="pdp-fit">{{ settings.fit_note }} <a href="/pages/tragen" class="underline">So funktioniert’s</a></p>
+      {%- endif -%}
+
+      {%- form 'product', product, id: 'product-form', class: 'pdp-form' -%}
+        <input type="hidden" name="id" value="{{ current.id }}" data-variant-input>
+        <div class="pdp-buy">
+          <div class="stepper" data-stepper>
+            <button type="button" data-step="-1" aria-label="Menge verringern">{% render 'icon', name: 'minus' %}</button>
+            <input type="number" name="quantity" value="1" min="1" max="10" aria-label="Menge">
+            <button type="button" data-step="1" aria-label="Menge erhöhen">{% render 'icon', name: 'plus' %}</button>
+          </div>
+          <button type="submit" class="btn btn-primary btn-grow" data-add-button {% unless current.available %}disabled{% endunless %}>
+            {%- if current.available -%}In den Warenkorb{%- else -%}Ausverkauft{%- endif -%}
+          </button>
+        </div>
+        <p class="form-error" data-form-error hidden></p>
+      {%- endform -%}
+
+      {%- if product.description != blank -%}
+        <div class="pdp-description rte">{{ product.description }}</div>
+      {%- endif -%}
+
+      <div class="accordion">
+        {%- for block in section.blocks -%}
+          <details {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.title }} {% render 'icon', name: 'chevron' %}</summary>
+            <div class="rte">{{ block.settings.content }}</div>
+          </details>
+        {%- endfor -%}
+        {%- if shop.shipping_policy or shop.refund_policy -%}
+          <details>
+            <summary>Versand & Rückgabe {% render 'icon', name: 'chevron' %}</summary>
+            <div class="rte">
+              <p>
+                {%- if shop.shipping_policy -%}<a href="{{ shop.shipping_policy.url }}">Versandbedingungen</a>{%- endif -%}
+                {%- if shop.shipping_policy and shop.refund_policy %} · {% endif -%}
+                {%- if shop.refund_policy -%}<a href="{{ shop.refund_policy.url }}">Rückgabe & Widerruf</a>{%- endif -%}
+              </p>
+            </div>
+          </details>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.show_related -%}
+  <section class="section-grid">
+    <h2 class="section-title">Das könnte dir auch gefallen</h2>
+    <div class="grid-products">
+      {%- liquid
+        assign shown = 0
+        for p in collections.all.products
+          for v in p.variants
+            if shown >= 4
+              break
+            endif
+            if v.id != current.id and v.available
+              render 'variant-card', product: p, variant: v
+              assign shown = shown | plus: 1
+            endif
+          endfor
+        endfor
+      -%}
+    </div>
+  </section>
+{%- endif -%}
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Produkt",
+  "settings": [
+    { "type": "checkbox", "id": "show_related", "label": "„Das könnte dir auch gefallen“ zeigen", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Aufklappbereich",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titel", "default": "Details" },
+        { "type": "richtext", "id": "content", "label": "Inhalt", "default": "<p>Text</p>" }
+      ]
+    }
+  ]
+}
+{% endschema %}

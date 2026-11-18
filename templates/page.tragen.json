@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "intro": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Tragen & Größe",
+        "is_title": true,
+        "text": "<p>Jedes Nodotempo-Armband ist über zwei Schiebeknoten stufenlos verstellbar. Du musst keine Größe wählen, es passt sich deinem Handgelenk an.</p>"
+      }
+    },
+    "adjust": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "So verstellst du dein Armband",
+        "text": "<ol><li><strong>Weiten:</strong> Halte die beiden Knoten fest und schiebe sie voneinander weg. Die Schlaufe wird größer, sodass du bequem hineinschlüpfen kannst.</li><li><strong>Enger stellen:</strong> Ziehe gleichzeitig an beiden Kordelenden, bis das Armband angenehm sitzt.</li><li><strong>Richtig sitzen:</strong> Zwischen Armband und Handgelenk sollte etwa ein Finger Platz haben.</li></ol>"
+      }
+    },
+    "watch": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Neben der Uhr tragen",
+        "text": "<p>Trag das Armband mit etwas Abstand zur Uhr, entweder zum Ellenbogen hin oder auf der Seite der Hand. Greife eine Farbe aus Zifferblatt, Lünette oder Uhrenband auf, oder setze bewusst einen Kontrast.</p>"
+      }
+    },
+    "care": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Pflege",
+        "text": "<p>Bei Bedarf mit lauwarmem Wasser und etwas milder Seife von Hand waschen und an der Luft trocknen lassen. Nicht in den Trockner geben.</p>"
+      }
+    }
+  },
+  "order": [
+    "intro",
+    "adjust",
+    "watch",
+    "care"
+  ]
+}

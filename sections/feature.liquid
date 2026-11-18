@@ -1,0 +1,40 @@
+{%- liquid
+  assign p = section.settings.product
+  if p == blank
+    assign p = all_products['nodo-no-2']
+  endif
+  assign v = nil
+  if p and section.settings.variant_name != blank
+    for variant in p.variants
+      if variant.title == section.settings.variant_name
+        assign v = variant
+      endif
+    endfor
+  endif
+-%}
+<section class="feature">
+  <div class="feature-media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(max-width: 900px) 100vw, 50vw' }}
+    {%- else -%}
+      {% render 'fallback-image', index: 4, angled: true, sizes: '(max-width: 900px) 100vw, 50vw' %}
+    {%- endif -%}
+    {%- if section.settings.caption != blank -%}<p class="feature-caption">{{ section.settings.caption }}</p>{%- endif -%}
+  </div>
+  <div class="feature-product">
+    {%- if p -%}{% render 'variant-card', product: p, variant: v %}{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bild mit Produkt",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Bild", "info": "Hochformat 4:5" },
+    { "type": "text", "id": "caption", "label": "Bildunterschrift", "default": "Neben der Uhr. Oder ganz für sich." },
+    { "type": "product", "id": "product", "label": "Produkt" },
+    { "type": "text", "id": "variant_name", "label": "Farbe (Name)", "default": "Riva" }
+  ],
+  "presets": [{ "name": "Bild mit Produkt" }]
+}
+{% endschema %}

@@ -1,0 +1,32 @@
+{%- paginate collection.products by 48 -%}
+  {%- liquid
+    assign variant_count = 0
+    for p in collection.products
+      assign variant_count = variant_count | plus: p.variants.size
+    endfor
+  -%}
+  <section class="page-shop">
+    <div class="toolbar">
+      <div class="toolbar-filters">
+        <h1 class="toolbar-title">{{ collection.title }}</h1>
+      </div>
+      <div class="toolbar-right">
+        <span class="muted">{{ variant_count }} Artikel</span>
+      </div>
+    </div>
+    {%- if collection.products.size == 0 -%}
+      <div class="empty"><p>Hier ist noch nichts.</p></div>
+    {%- else -%}
+      <div class="grid-products">
+        {% render 'variant-grid-items', products: collection.products %}
+      </div>
+    {%- endif -%}
+    {%- if paginate.pages > 1 -%}
+      <div class="center-row">{{ paginate | default_pagination }}</div>
+    {%- endif -%}
+  </section>
+{%- endpaginate -%}
+
+{% schema %}
+{ "name": "Kollektion", "settings": [] }
+{% endschema %}

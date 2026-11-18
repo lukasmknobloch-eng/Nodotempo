@@ -1,0 +1,26 @@
+<div class="drawer" data-cart-drawer aria-hidden="true" data-free-from="{{ settings.free_shipping_from | times: 100 }}" data-currency="{{ cart.currency.iso_code }}">
+  <div class="drawer-backdrop" data-cart-close></div>
+  <aside class="drawer-panel" role="dialog" aria-label="Warenkorb" aria-modal="true">
+    <div class="drawer-head">
+      <h2>Warenkorb (<span data-cart-count>{{ cart.item_count }}</span>)</h2>
+      <button class="header-link" type="button" data-cart-close aria-label="Warenkorb schließen">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <div class="drawer-empty" data-cart-empty {% if cart.item_count > 0 %}hidden{% endif %}>
+      <p>Dein Warenkorb ist leer.</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline">Armbänder ansehen</a>
+    </div>
+    <div class="drawer-content" data-cart-content {% if cart.item_count == 0 %}hidden{% endif %}>
+      <div class="shipping-bar" data-shipping-bar hidden>
+        <p data-shipping-text></p>
+        <div class="shipping-bar-track"><div class="shipping-bar-fill" data-shipping-fill></div></div>
+      </div>
+      <ul class="drawer-lines" data-cart-lines></ul>
+      <div class="drawer-foot">
+        <div class="summary-row"><span>Zwischensumme</span><span data-cart-total>{{ cart.total_price | money }}</span></div>
+        <p class="muted small">{{ settings.tax_note }} Versand und Rabattcodes im nächsten Schritt.</p>
+        <a href="{{ routes.root_url }}checkout" class="btn btn-primary btn-block">Zur Kasse</a>
+        <a href="{{ routes.cart_url }}" class="btn btn-outline btn-block">Warenkorb ansehen</a>
+      </div>
+    </div>
+  </aside>
+</div>

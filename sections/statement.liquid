@@ -1,0 +1,29 @@
+<section class="statement">
+  {%- if settings.logo_mark != blank and section.settings.show_mark -%}
+    {% render 'logo-mark', class: 'statement-mark' %}
+  {%- else -%}
+    {% render 'logo', class: 'statement-logo' %}
+  {%- endif -%}
+  {%- if section.settings.text != blank -%}<div class="statement-text">{{ section.settings.text }}</div>{%- endif -%}
+  {%- if section.settings.link_label != blank -%}
+    <a href="{{ section.settings.link | default: '/pages/marke' }}" class="text-link">{{ section.settings.link_label }}</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Markenzeile",
+  "settings": [
+    { "type": "checkbox", "id": "show_mark", "label": "Logo-Zeichen statt Schriftzug zeigen", "default": true },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p><em>Nodo</em>, der Knoten. <em>Tempo</em>, die Zeit. Jedes Armband wird von Hand geknüpft und lässt sich über zwei Schiebeknoten stufenlos anpassen, für jedes Handgelenk und jede Uhr.</p>"
+    },
+    { "type": "text", "id": "link_label", "label": "Link", "default": "Die Marke" },
+    { "type": "url", "id": "link", "label": "Link-Ziel" }
+  ],
+  "presets": [{ "name": "Markenzeile" }]
+}
+{% endschema %}

@@ -1,0 +1,13 @@
+<section class="page container narrow prose">
+  <h1 class="h1 page-head">{{ blog.title }}</h1>
+  {%- paginate blog.articles by 12 -%}
+    {%- for article in blog.articles -%}
+      <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+      <p class="muted small">{{ article.published_at | date: '%d.%m.%Y' }}</p>
+    {%- endfor -%}
+    {%- if paginate.pages > 1 -%}{{ paginate | default_pagination }}{%- endif -%}
+  {%- endpaginate -%}
+</section>
+{% schema %}
+{ "name": "Blog", "settings": [] }
+{% endschema %}

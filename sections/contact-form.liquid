@@ -1,0 +1,40 @@
+<section class="page container">
+  <div class="contact-layout">
+    <div>
+      <h1 class="h1">{{ section.settings.heading }}</h1>
+      <div class="page-lead rte">{{ section.settings.text }}</div>
+      <div class="contact-info">
+        <p class="footer-label">E-Mail</p>
+        <p><a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+        {%- if settings.instagram_url != blank -%}
+          <p class="footer-label">Instagram</p>
+          <p><a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">@{{ settings.instagram_handle }}</a></p>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- form 'contact', class: 'form-card form' -%}
+      {%- if form.posted_successfully? -%}
+        <p>Danke für deine Nachricht. Wir melden uns so schnell wie möglich.</p>
+      {%- else -%}
+        {%- if form.errors -%}<p class="form-error">{{ form.errors | default_errors }}</p>{%- endif -%}
+        <div class="form-row">
+          <label>Name*<input name="contact[name]" required autocomplete="name"></label>
+          <label>E-Mail*<input name="contact[email]" type="email" required autocomplete="email"></label>
+        </div>
+        <label>Bestellnummer (optional)<input name="contact[order]"></label>
+        <label>Nachricht*<textarea name="contact[body]" rows="6" required></textarea></label>
+        <button class="btn btn-primary" type="submit">Nachricht senden</button>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Kontaktformular",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Wir sind für dich da." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Fragen zu einer Bestellung, zur Farbe oder zur Kombination mit deiner Uhr? Schreib uns, wir antworten in der Regel innerhalb eines Werktags.</p>" }
+  ],
+  "presets": [{ "name": "Kontaktformular" }]
+}
+{% endschema %}

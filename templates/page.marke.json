@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "statement": {
+      "type": "statement",
+      "settings": {
+        "text": "<p><em>Nodo</em>, der Knoten. <em>Tempo</em>, die Zeit. Nodotempo verbindet zwei Dinge, die am Handgelenk zusammenfinden: das Armband und die Uhr. Und zeigt, dass das eine ohne das andere bestehen kann.</p>",
+        "link_label": "Armbänder ansehen",
+        "link": "/collections/all"
+      }
+    },
+    "idea": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Was neben der Uhr Platz hat",
+        "text": "<p>Eine Uhr ist oft das persönlichste Accessoire, das wir tragen. Doch das Handgelenk bietet mehr Raum. Wir wollten ein Armband, das eine Uhr ergänzt: leicht genug, um nicht zu stören, weich genug, um nicht am Gehäuse zu kratzen, und in Farben, die Zifferblatt und Uhrenband aufgreifen. Die Antwort war eine geflochtene Kordel und ein Knoten.</p><p>Gleichzeitig wollten wir nichts entwerfen, das ohne Uhr unvollständig wirkt. Jedes Nodotempo-Armband steht für sich.</p>"
+      }
+    },
+    "product": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Das Armband",
+        "text": "<p>Paracord, geflochten nach dem Vorbild der Fallschirmleine, von Hand geknüpft. Zwei Schiebeknoten machen es stufenlos verstellbar. Kein Verschluss, kein Metall, nur der Knoten, der uns den Namen gab.</p>"
+      }
+    }
+  },
+  "order": [
+    "statement",
+    "idea",
+    "product"
+  ]
+}

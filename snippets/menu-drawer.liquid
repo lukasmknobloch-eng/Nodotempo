@@ -1,0 +1,30 @@
+{%- liquid
+  assign menu = linklists['main-menu']
+-%}
+<div class="menu" data-menu aria-hidden="true">
+  <div class="menu-backdrop" data-menu-close></div>
+  <div class="menu-panel" role="dialog" aria-label="Menü">
+    <div class="menu-top">
+      <button class="header-link" type="button" data-menu-close>{% render 'icon', name: 'close' %} Schließen</button>
+    </div>
+    <nav class="menu-nav">
+      {%- if menu.links.size > 0 -%}
+        {%- for link in menu.links -%}
+          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url }}">Alle Armbänder</a>
+        <a href="{{ routes.root_url }}products/nodo-no-2">Nodo No. 2</a>
+        <a href="{{ routes.root_url }}products/nodo-no-1">Nodo No. 1</a>
+        <a href="{{ routes.root_url }}pages/tragen">Tragen & Größe</a>
+        <a href="{{ routes.root_url }}pages/marke">Die Marke</a>
+      {%- endif -%}
+    </nav>
+    <div class="menu-foot">
+      <a href="{{ routes.root_url }}pages/faq">Häufige Fragen</a>
+      {%- if shop.shipping_policy -%}<a href="{{ shop.shipping_policy.url }}">Versand</a>{%- endif -%}
+      <a href="{{ routes.root_url }}pages/kontakt">Kontakt</a>
+      {%- if settings.instagram_url != blank -%}<a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+    </div>
+  </div>
+</div>

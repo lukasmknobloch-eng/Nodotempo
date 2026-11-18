@@ -1,0 +1,81 @@
+{
+  "sections": {
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "heading": "Häufige Fragen"
+      },
+      "blocks": {
+        "q0": {
+          "type": "question",
+          "settings": {
+            "question": "Welche Zahlungsarten bietet ihr an?",
+            "answer": "<p>Kreditkarte, Apple Pay, Google Pay, PayPal und Klarna. Die Zahlung läuft verschlüsselt über Shopify.</p>"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Welche Größe passt mir?",
+            "answer": "<p>Alle Armbänder sind über zwei Schiebeknoten stufenlos verstellbar und passen an nahezu jedes Handgelenk. Wie das geht, zeigen wir unter <a href=\"/pages/tragen\">Tragen &amp; Größe</a>.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Was ist der Unterschied zwischen Nodo No. 1 und Nodo No. 2?",
+            "answer": "<p>Nodo No. 2 ist das Original aus kräftigem Paracord. Nodo No. 1 ist die feine Version aus schmalerem Paracord, zurückhaltend allein getragen und ideal zum Kombinieren.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Kann ich das Armband neben meiner Uhr tragen?",
+            "answer": "<p>Dafür sind unsere Armbänder entworfen. Die weiche Kordel kratzt nicht am Gehäuse. Trag das Armband mit etwas Abstand zur Uhr, dann sitzen beide frei.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Darf das Armband nass werden?",
+            "answer": "<p>Die Kordel ist alltagstauglich. Wird sie nass, lass sie einfach an der Luft trocknen. Zum Reinigen genügt lauwarmes Wasser mit etwas milder Seife.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "Kann ich mehrere Armbänder zusammen tragen?",
+            "answer": "<p>Unbedingt. Zwei oder drei Farben übereinander sehen besonders gut aus, zum Beispiel ein Nodo No. 2 mit einem feinen Nodo No. 1.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lange dauert der Versand?",
+            "answer": "<p>Innerhalb Deutschlands in der Regel 2–4 Werktage. Alle Details findest du in den Versandbedingungen.</p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "question": "Kann ich zurückgeben oder umtauschen?",
+            "answer": "<p>Ja. Schreib uns kurz mit deiner Bestellnummer über das <a href=\"/pages/kontakt\">Kontaktformular</a>. Dein gesetzliches Widerrufsrecht findest du in der Widerrufsbelehrung.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ]
+    }
+  },
+  "order": [
+    "faq"
+  ]
+}

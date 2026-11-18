@@ -1,0 +1,21 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Geschenkgutschein – {{ shop.name }}</title>
+    {% render 'theme-styles' %}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body>
+    <section class="page container narrow prose">
+      {% render 'logo' %}
+      <h1 class="h1 page-head">Dein Gutschein über {{ gift_card.initial_value | money }}</h1>
+      <p>Code: <strong>{{ gift_card.code | format_code }}</strong></p>
+      <p>Restguthaben: {{ gift_card.balance | money }}</p>
+      <p><a class="btn btn-primary" href="{{ shop.url }}">Jetzt einlösen</a></p>
+    </section>
+  </body>
+</html>

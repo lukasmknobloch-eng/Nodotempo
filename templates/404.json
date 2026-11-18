@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "rich-text",
+      "settings": {
+        "heading": "Diese Seite ist aus der Zeit gefallen.",
+        "is_title": true,
+        "centered": true,
+        "text": "<p>Die gesuchte Seite existiert nicht oder wurde verschoben. <a href=\"/collections/all\">Zu allen Armbändern</a></p>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

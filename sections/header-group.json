@@ -1,0 +1,8 @@
+{
+  "type": "header",
+  "name": "Kopfbereich",
+  "sections": {
+    "header": { "type": "header", "settings": {} }
+  },
+  "order": ["header"]
+}

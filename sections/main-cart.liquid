@@ -1,0 +1,42 @@
+<section class="page container">
+  <h1 class="h1 page-head">Warenkorb</h1>
+  {%- if cart.item_count == 0 -%}
+    <div class="empty empty-page">
+      <p>Dein Warenkorb ist leer.</p>
+      <a href="{{ routes.all_products_collection_url }}" class="btn btn-outline">Armbänder ansehen</a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" class="cart-layout">
+      <ul class="cart-table">
+        {%- for item in cart.items -%}
+          <li class="cart-line cart-line-lg">
+            <a href="{{ item.url }}" class="cart-line-img">
+              <div class="product-image">{%- if item.image -%}{{ item.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: item.product.title }}{%- endif -%}</div>
+            </a>
+            <div class="cart-line-body">
+              <div class="cart-line-top">
+                <a href="{{ item.url }}" class="cart-line-name">{{ item.product.title }}</a>
+                <span>{{ item.final_line_price | money }}</span>
+              </div>
+              {%- unless item.product.has_only_default_variant -%}<p class="muted">{{ item.variant.title }}</p>{%- endunless -%}
+              <div class="cart-line-actions">
+                <label class="sr-only" for="qty-{{ forloop.index }}">Menge</label>
+                <input id="qty-{{ forloop.index }}" class="qty-input" type="number" name="updates[]" value="{{ item.quantity }}" min="0" max="10">
+                <a href="{{ item.url_to_remove }}" class="link-btn">Entfernen</a>
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <aside class="cart-summary">
+        <div class="summary-row summary-total"><span>Zwischensumme</span><strong>{{ cart.total_price | money }}</strong></div>
+        <p class="muted small">{{ settings.tax_note }} Versand und Rabattcodes im nächsten Schritt.</p>
+        <button type="submit" name="update" class="btn btn-outline btn-block">Aktualisieren</button>
+        <button type="submit" name="checkout" class="btn btn-primary btn-block">Zur Kasse</button>
+      </aside>
+    </form>
+  {%- endif -%}
+</section>
+{% schema %}
+{ "name": "Warenkorb", "settings": [] }
+{% endschema %}

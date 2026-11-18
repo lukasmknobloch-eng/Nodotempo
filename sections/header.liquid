@@ -1,0 +1,32 @@
+<header class="header" data-header>
+  <div class="header-inner">
+    <button class="header-link" type="button" data-menu-open aria-label="Menü öffnen">
+      {% render 'icon', name: 'menu' %}<span class="hide-sm">Menü</span>
+    </button>
+
+    <a href="{{ routes.root_url }}" class="header-logo" aria-label="{{ shop.name }} – Startseite">
+      {% render 'logo' %}
+    </a>
+
+    <nav class="header-right" aria-label="Service">
+      <a href="{{ routes.search_url }}" class="header-link">
+        <span class="show-sm-inline">{% render 'icon', name: 'search' %}</span><span class="hide-sm">Suche</span>
+      </a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="header-link hide-sm">Konto</a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="header-link" data-cart-open>
+        <span class="show-sm-inline">{% render 'icon', name: 'bag' %}</span><span class="hide-sm">Warenkorb</span>
+        (<span data-cart-count>{{ cart.item_count }}</span>)
+      </a>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Kopfzeile",
+  "class": "header-section",
+  "settings": []
+}
+{% endschema %}

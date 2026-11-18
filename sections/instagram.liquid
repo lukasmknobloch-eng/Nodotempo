@@ -1,0 +1,36 @@
+<section class="insta">
+  <div class="insta-grid">
+    {%- for i in (1..6) -%}
+      {%- assign key = 'image_' | append: i -%}
+      {%- assign img = section.settings[key] -%}
+      <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener" class="insta-item" aria-label="Instagram">
+        {%- if img != blank -%}
+          {{ img | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(max-width: 700px) 50vw, 33vw' }}
+        {%- else -%}
+          {%- assign idx = i | plus: 1 -%}
+          {% render 'fallback-image', index: idx, angled: false, sizes: '(max-width: 700px) 50vw, 33vw' %}
+        {%- endif -%}
+      </a>
+    {%- endfor -%}
+  </div>
+  <div class="center-row">
+    <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+      {% render 'icon', name: 'instagram' %} Folge uns auf Instagram
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram",
+  "settings": [
+    { "type": "image_picker", "id": "image_1", "label": "Bild 1" },
+    { "type": "image_picker", "id": "image_2", "label": "Bild 2" },
+    { "type": "image_picker", "id": "image_3", "label": "Bild 3" },
+    { "type": "image_picker", "id": "image_4", "label": "Bild 4" },
+    { "type": "image_picker", "id": "image_5", "label": "Bild 5" },
+    { "type": "image_picker", "id": "image_6", "label": "Bild 6" }
+  ],
+  "presets": [{ "name": "Instagram" }]
+}
+{% endschema %}
