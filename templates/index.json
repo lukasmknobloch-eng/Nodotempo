@@ -1,12 +1,80 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": { "type": "hero", "settings": {} },
-    "models": { "type": "models", "settings": {} },
-    "grid": { "type": "product-grid", "settings": { "limit": 8 } },
-    "split": { "type": "image-split", "settings": {} },
-    "feature": { "type": "feature", "settings": {} },
-    "statement": { "type": "statement", "settings": {} },
-    "instagram": { "type": "instagram", "settings": {} }
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "use_default_image": true,
+        "black_white": true,
+        "focus": "center",
+        "heading": "Getragen neben der Zeit",
+        "text": "The Nato-Series · Handgeknüpft aus Fallschirmseil",
+        "button_label": "Armbänder ansehen",
+        "button_link": ""
+      }
+    },
+    "models": {
+      "type": "models",
+      "settings": {
+        "eyebrow": "The Nato-Series",
+        "product_1": "",
+        "color_1": "Ciliegia",
+        "product_2": "",
+        "color_2": "Moka"
+      }
+    },
+    "grid": {
+      "type": "product-grid",
+      "settings": {
+        "heading": "",
+        "collection": "",
+        "mix": true,
+        "limit": 8,
+        "button_label": "Alle ansehen"
+      }
+    },
+    "split": {
+      "type": "image-split",
+      "settings": {}
+    },
+    "feature": {
+      "type": "feature",
+      "settings": {
+        "use_default_image": true,
+        "caption": "Neben der Uhr. Oder ganz für sich.",
+        "product": "nodo-no-2",
+        "variant_name": "Granato"
+      }
+    },
+    "statement": {
+      "type": "statement",
+      "settings": {
+        "show_mark": true,
+        "text": "<p><em>Nodo</em>, der Knoten. <em>Tempo</em>, die Zeit. Jedes Armband wird von Hand geknüpft und lässt sich über zwei Schiebeknoten stufenlos anpassen, für jedes Handgelenk und jede Uhr.</p>",
+        "link_label": "Die Marke",
+        "link": ""
+      }
+    },
+    "instagram": {
+      "type": "instagram",
+      "settings": {}
+    }
   },
-  "order": ["hero", "models", "grid", "split", "feature", "statement", "instagram"]
+  "order": [
+    "hero",
+    "models",
+    "grid",
+    "split",
+    "feature",
+    "statement",
+    "instagram"
+  ]
 }
