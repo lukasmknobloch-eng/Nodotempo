@@ -12,7 +12,7 @@
   {%- if has_photo -%}
     <div class="hero-media">
       {%- if section.settings.image == blank -%}
-        <img src="{{ 'hero.jpg' | asset_url }}" alt="{{ section.settings.heading | escape }}" width="1500" height="998" fetchpriority="high" class="{{ bw_class }}">
+        <img src="{{ 'hero.jpg' | asset_url }}" alt="{{ section.settings.heading | escape }}" width="1500" height="998" fetchpriority="high">
       {%- else -%}
       {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '800, 1200, 1600, 2000, 2400', sizes: '100vw', alt: section.settings.heading, class: bw_class }}
       {%- endif -%}
@@ -40,7 +40,7 @@
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Bild", "info": "Querformat, mind. 2400 px breit. Ohne Bild werden zwei Produktfotos gezeigt." },
     { "type": "checkbox", "id": "use_default_image", "label": "Standard-Titelbild verwenden (Golf-Foto), wenn kein Bild gewählt ist", "default": true },
-    { "type": "checkbox", "id": "black_white", "label": "Schwarz-Weiß", "default": true },
+    { "type": "checkbox", "id": "black_white", "label": "Schwarz-Weiß", "default": true, "info": "Gilt nur für ein selbst hochgeladenes Bild. Beim Standard-Titelbild sind bereits nur die Bänder farbig." },
     { "type": "select", "id": "focus", "label": "Bildausschnitt", "default": "center", "options": [{ "value": "top", "label": "Oben" }, { "value": "center", "label": "Mitte" }, { "value": "bottom", "label": "Unten" }] },
     { "type": "text", "id": "heading", "label": "Überschrift", "default": "Getragen neben der Zeit" },
     { "type": "text", "id": "text", "label": "Text", "default": "The Nato-Series · Handgeknüpft aus Fallschirmseil" },
