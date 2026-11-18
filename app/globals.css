@@ -19,6 +19,7 @@
   --font: "Instrument Sans Variable", "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --gutter: clamp(16px, 2vw, 24px);
   --header-h: 60px;
+  --bar-h: 30px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -277,6 +278,20 @@ p {
 /* Weiße Schrift, wenn ganz oben ein echtes Foto liegt */
 body:has(.hero-photo) .header.is-overlay {
   color: #fff;
+}
+.announcement {
+  height: var(--bar-h);
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding-inline: var(--gutter);
+  background: var(--ink);
+  color: var(--on-dark);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .header-inner {
   display: grid;
@@ -920,7 +935,7 @@ body:has(.hero-photo) .header.is-overlay {
 }
 .pdp-info {
   position: sticky;
-  top: calc(var(--header-h) + 24px);
+  top: calc(var(--header-h) + var(--bar-h) + 24px);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -1182,7 +1197,7 @@ body:has(.hero-photo) .header.is-overlay {
 }
 .cart-summary {
   position: sticky;
-  top: calc(var(--header-h) + 24px);
+  top: calc(var(--header-h) + var(--bar-h) + 24px);
   background: var(--surface);
   border: 1px solid var(--line);
   padding: 24px;
@@ -1426,11 +1441,14 @@ body:has(.hero-photo) .header.is-overlay {
   margin-top: 16px;
 }
 
-/* ─── Fußbereich ─── */
+/* ─── Fußbereich (dunkelgrün) ─── */
 
 .footer {
-  border-top: 1px solid var(--line);
-  padding: clamp(48px, 6vw, 72px) var(--gutter) 24px;
+  --footer-soft: rgba(243, 238, 228, 0.72);
+  --footer-line: rgba(243, 238, 228, 0.22);
+  background: var(--ink);
+  color: var(--on-dark);
+  padding: clamp(56px, 7vw, 88px) var(--gutter) 28px;
 }
 .footer-logo {
   display: flex;
@@ -1448,10 +1466,10 @@ body:has(.hero-photo) .header.is-overlay {
 }
 .footer-about {
   max-width: 340px;
-  color: var(--ink-soft);
+  color: var(--footer-soft);
 }
 .footer-about strong {
-  color: var(--ink);
+  color: var(--on-dark);
   font-weight: 600;
 }
 .footer-cols {
@@ -1464,6 +1482,7 @@ body:has(.hero-photo) .header.is-overlay {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 10px;
+  color: var(--accent);
 }
 .footer-cols ul {
   list-style: none;
@@ -1472,16 +1491,33 @@ body:has(.hero-photo) .header.is-overlay {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  color: var(--ink-soft);
+  color: var(--footer-soft);
 }
 .footer-cols a:hover {
-  color: var(--ink);
+  color: var(--on-dark);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .footer-title {
   font-weight: 500;
   margin-bottom: 8px;
+}
+.footer .newsletter-row {
+  border-bottom-color: var(--footer-soft);
+}
+.footer .newsletter-row input {
+  color: var(--on-dark);
+}
+.footer .newsletter-row input::placeholder {
+  color: var(--footer-soft);
+}
+.footer .newsletter-row .text-btn {
+  color: var(--on-dark);
+}
+.footer .muted,
+.footer .newsletter p,
+.footer .newsletter small {
+  color: var(--footer-soft);
 }
 .footer-bottom {
   display: flex;
@@ -1490,12 +1526,19 @@ body:has(.hero-photo) .header.is-overlay {
   align-items: center;
   gap: 16px 32px;
   margin-top: clamp(40px, 5vw, 64px);
+  padding-top: 24px;
+  border-top: 1px solid var(--footer-line);
   font-size: 12px;
-  color: var(--muted);
+  color: var(--footer-soft);
 }
 .footer-bottom a {
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+.footer .payment-badges li {
+  background: transparent;
+  border-color: var(--footer-line);
+  color: var(--on-dark);
 }
 
 /* ─── Cookie-Hinweis ─── */

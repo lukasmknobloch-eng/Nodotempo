@@ -29,12 +29,12 @@ export default function HomePage() {
   const angled = (id: string) => no2.find((c) => c.variant?.id === id)?.images[1] ?? no2[0]?.images[0];
   const angled1 = (id: string) => no1.find((c) => c.variant?.id === id)?.images[1] ?? no1[0]?.images[0];
   // Je vier Farben beider Modelle im Wechsel
-  const mixed = Array.from({ length: 4 }, (_, i) => [no2[i], no1[i]]).flat().filter(Boolean);
+  const mixed = Array.from({ length: 4 }, (_, i) => [no1[i], no2[i]]).flat().filter(Boolean);
   const topView = (i: number) => no2[i % Math.max(no2.length, 1)]?.images[0];
 
   const hero = findImage("bilder/hero");
   const editorial = [findImage("bilder/editorial-1") ?? angled("beere-rosa"), findImage("bilder/editorial-2") ?? angled("hellgruen")];
-  const models = ["nodo-no-2", "nodo-no-1"].flatMap((slug) => {
+  const models = ["nodo-no-1", "nodo-no-2"].flatMap((slug) => {
     const product = catalog.find((p) => p.slug === slug);
     if (!product) return [];
     const fallback = slug === "nodo-no-2" ? angled("bordeaux-grau") : angled1("notte");

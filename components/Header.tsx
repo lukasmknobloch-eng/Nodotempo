@@ -7,6 +7,7 @@ import { Logo } from "./Logo";
 import { BagIcon, CloseIcon, MenuIcon, SearchIcon } from "./Icons";
 import { useShop } from "./ShopProvider";
 import { navigation, site } from "@/lib/site";
+import { formatPrice } from "@/lib/format";
 
 export function Header() {
   const { count, wishlist, setCartOpen, setSearchOpen, menuOpen, setMenuOpen, ready } = useShop();
@@ -34,6 +35,7 @@ export function Header() {
   return (
     <>
       <header className={`header ${overlay ? "is-overlay" : ""} ${scrolled ? "is-scrolled" : ""}`}>
+        <p className="announcement">Kostenloser Versand ab {formatPrice(site.shipping.freeFrom)}</p>
         <div className="header-inner">
           <button className="header-link" onClick={() => setMenuOpen(true)} aria-label="Menü öffnen">
             <MenuIcon size={18} />
