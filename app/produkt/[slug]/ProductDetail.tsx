@@ -100,7 +100,7 @@ function Detail({
       <div className="pdp-info">
         <p className="pdp-series">{productInfo.series}</p>
         <h1 className="pdp-title">{product.name}</h1>
-        <p className="pdp-subtitle">{product.subtitle}</p>
+        {product.subtitle && <p className="pdp-subtitle">{product.subtitle}</p>}
         <p className="pdp-price">
           {product.compareAtPrice && <s>{formatPrice(product.compareAtPrice)}</s>}
           {formatPrice(product.price)}

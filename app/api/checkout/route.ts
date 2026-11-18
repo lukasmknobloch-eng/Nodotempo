@@ -52,7 +52,7 @@ export async function POST(req: Request) {
         tax_behavior: "inclusive",
         product_data: {
           name: `${product.name} – ${variant.name} (${variant.color})`,
-          description: `The Nato-Series · ${product.subtitle}, Fallschirmseil aus Nylon, stufenlos verstellbar`,
+          description: "The Nato-Series · Fallschirmseil aus Nylon, stufenlos verstellbar",
           images: canShowImages ? variant.images.slice(0, 1).map((src) => new URL(src, origin).toString()) : undefined,
           metadata: { slug: product.slug, variant: variant.id },
         },

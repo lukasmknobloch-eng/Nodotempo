@@ -30,8 +30,8 @@ export type Variant = {
 export type Product = {
   slug: string;
   name: string;
-  /** Kurzer Zusatz unter dem Namen */
-  subtitle: string;
+  /** Optionaler Zusatz unter dem Namen */
+  subtitle?: string;
   price: number;
   compareAtPrice?: number;
   /** Noch nicht bestellbar – wird als "Bald verfügbar" gezeigt */
@@ -54,7 +54,6 @@ export const products: Product[] = [
   {
     slug: "nodo-no-2",
     name: "Nodo No. 2",
-    subtitle: "Die kräftige Version",
     price: 1690,
     description:
       "Geflochtenes Fallschirmseil aus Nylon, von Hand zu einem Armband geknüpft. Zwei Schiebeknoten machen es stufenlos verstellbar: an den Enden ziehen, bis es sitzt. Leicht genug für jeden Tag, präsent genug, um neben einer Uhr zu bestehen.",
@@ -81,7 +80,6 @@ export const products: Product[] = [
   {
     slug: "nodo-no-1",
     name: "Nodo No. 1",
-    subtitle: "Die feine Version",
     price: 1390,
     description:
       "Die schmalere Schwester von Nodo No. 2: feineres Fallschirmseil, derselbe Knoten. Zurückhaltend allein getragen, ideal zum Kombinieren mit mehreren Farben.",

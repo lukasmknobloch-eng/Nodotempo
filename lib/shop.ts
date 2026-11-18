@@ -24,7 +24,7 @@ export function toCards(catalog: CatalogProduct[]): Card[] {
             product,
             href: productHref(product.slug),
             title: product.name,
-            subtitle: product.comingSoon ? "Bald verfügbar" : product.subtitle,
+            subtitle: product.comingSoon ? "Bald verfügbar" : (product.subtitle ?? ""),
             images: product.images,
           },
         ]

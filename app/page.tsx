@@ -87,7 +87,7 @@ export default function HomePage() {
           </div>
         )}
         <div className="banner-copy">
-          <p className="eyebrow">The Nato-Series · Die feine Version</p>
+          <p className="eyebrow">The Nato-Series</p>
           <h2>Nodo No. 1</h2>
           <p>Feineres Fallschirmseil, derselbe Knoten. Jetzt erhältlich.</p>
           <Link href="/produkt/nodo-no-1" className="btn btn-outline-light">
