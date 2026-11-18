@@ -90,9 +90,9 @@ export default function HomePage() {
         <div className="banner-copy">
           <p className="eyebrow">Die feine Version</p>
           <h2>Nodo No. 1</h2>
-          <p>Schmaleres Paracord, derselbe Knoten. Bald verfügbar.</p>
+          <p>Schmaleres Paracord, derselbe Knoten. Jetzt erhältlich.</p>
           <Link href="/produkt/nodo-no-1" className="btn btn-outline-light">
-            Mehr erfahren
+            Nodo No. 1 ansehen
           </Link>
         </div>
       </section>

@@ -81,7 +81,6 @@ export const products: Product[] = [
     name: "Nodo No. 1",
     subtitle: "Die feine Version",
     price: 1490,
-    comingSoon: true,
     description:
       "Die schmalere Schwester von Nodo No. 2: dünneres Paracord, derselbe Knoten. Zurückhaltend allein getragen, ideal zum Kombinieren mit mehreren Farben.",
     details: [
@@ -90,7 +89,11 @@ export const products: Product[] = [
       "Von Hand geknüpft",
       "Ideal zum Kombinieren",
     ],
-    variants: [],
+    variants: [
+      { id: "pino", name: "Pino", color: "Dunkelgrün", added: 14 },
+      { id: "notte", name: "Notte", color: "Navy", added: 13 },
+      { id: "bordo", name: "Bordò", color: "Bordeaux", added: 12 },
+    ],
   },
 ];
 
