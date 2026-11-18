@@ -7,7 +7,31 @@
 <section class="section-grid">
   {%- if section.settings.heading != blank -%}<h2 class="section-title">{{ section.settings.heading }}</h2>{%- endif -%}
   <div class="grid-products">
-    {% render 'variant-grid-items', products: coll.products, limit: section.settings.limit %}
+    {%- if section.settings.mix -%}
+      {%- liquid
+        assign per = section.settings.limit | divided_by: coll.products.size
+        if per < 1
+          assign per = 1
+        endif
+        assign last = per | minus: 1
+        assign shown = 0
+        for i in (0..last)
+          for product in coll.products
+            assign variant = product.variants[i]
+            if variant
+              assign preload = false
+              if shown < 4
+                assign preload = true
+              endif
+              render 'variant-card', product: product, variant: variant, preload: preload
+              assign shown = shown | plus: 1
+            endif
+          endfor
+        endfor
+      -%}
+    {%- else -%}
+      {% render 'variant-grid-items', products: coll.products, limit: section.settings.limit %}
+    {%- endif -%}
   </div>
   {%- if section.settings.button_label != blank -%}
     <div class="center-row">
@@ -22,6 +46,7 @@
   "settings": [
     { "type": "text", "id": "heading", "label": "Überschrift" },
     { "type": "collection", "id": "collection", "label": "Kollektion", "info": "Leer = alle Produkte" },
+    { "type": "checkbox", "id": "mix", "label": "Modelle im Wechsel zeigen", "default": true },
     { "type": "range", "id": "limit", "label": "Anzahl Farben", "min": 4, "max": 40, "step": 4, "default": 8 },
     { "type": "text", "id": "button_label", "label": "Button", "default": "Alle ansehen" }
   ],

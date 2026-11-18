@@ -1,12 +1,12 @@
 {
   "sections": {
     "hero": { "type": "hero", "settings": {} },
+    "models": { "type": "models", "settings": {} },
     "grid": { "type": "product-grid", "settings": { "limit": 8 } },
     "split": { "type": "image-split", "settings": {} },
-    "banner": { "type": "banner", "settings": {} },
     "feature": { "type": "feature", "settings": {} },
     "statement": { "type": "statement", "settings": {} },
     "instagram": { "type": "instagram", "settings": {} }
   },
-  "order": ["hero", "grid", "split", "banner", "feature", "statement", "instagram"]
+  "order": ["hero", "models", "grid", "split", "feature", "statement", "instagram"]
 }
