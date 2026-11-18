@@ -6,10 +6,10 @@
   {%- for i in (1..2) -%}
     {%- liquid
       if i == 1
-        assign p = section.settings.product_1 | default: all_products['nodo-no-2']
+        assign p = section.settings.product_1 | default: all_products['nodo-no-1']
         assign img = section.settings.image_1
       else
-        assign p = section.settings.product_2 | default: all_products['nodo-no-1']
+        assign p = section.settings.product_2 | default: all_products['nodo-no-2']
         assign img = section.settings.image_2
       endif
       if p == blank or p.title == blank
@@ -40,9 +40,9 @@
   "name": "Zwei Modelle",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Kleine Zeile", "default": "The Nato-Series" },
-    { "type": "product", "id": "product_1", "label": "Modell links", "info": "Leer = Nodo No. 2" },
+    { "type": "product", "id": "product_1", "label": "Modell links", "info": "Leer = Nodo No. 1" },
     { "type": "image_picker", "id": "image_1", "label": "Bild links" },
-    { "type": "product", "id": "product_2", "label": "Modell rechts", "info": "Leer = Nodo No. 1" },
+    { "type": "product", "id": "product_2", "label": "Modell rechts", "info": "Leer = Nodo No. 2" },
     { "type": "image_picker", "id": "image_2", "label": "Bild rechts" }
   ],
   "presets": [{ "name": "Zwei Modelle" }]

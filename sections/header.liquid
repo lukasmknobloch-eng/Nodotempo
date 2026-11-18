@@ -1,4 +1,7 @@
 <header class="header" data-header>
+  {%- if section.settings.announcement != blank -%}
+    <p class="announcement">{{ section.settings.announcement }}</p>
+  {%- endif -%}
   <div class="header-inner">
     <button class="header-link" type="button" data-menu-open aria-label="Menü öffnen">
       {% render 'icon', name: 'menu' %}<span class="hide-sm">Menü</span>
@@ -27,6 +30,8 @@
 {
   "name": "Kopfzeile",
   "class": "header-section",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "announcement", "label": "Grüne Leiste oben", "default": "Kostenloser Versand ab 50,00 €", "info": "Leer lassen, um die Leiste auszublenden" }
+  ]
 }
 {% endschema %}
